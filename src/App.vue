@@ -2,7 +2,7 @@
   <div id="app">
     <TheHeader />
     <router-view></router-view>
-    <TheFooter />
+    <TheFooter v-show="$route.meta.showFooter"/>
   </div>
 </template>
 
@@ -12,7 +12,7 @@ import TheFooter from '@/components/TheFooter'
 
 export default {
   name: 'App',
-  components: { TheFooter, TheHeader }
+  components: { TheFooter, TheHeader },
 }
 </script>
 

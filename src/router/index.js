@@ -12,22 +12,26 @@ export default new VueRouter({
         {
             name: 'home',
             path: '/',
-            component: TheHome
+            component: TheHome,
+            meta: { showFooter: true }
         },
         {
             name: 'search',
             path: '/search',
-            component: TheSearch
+            component: TheSearch,
+            meta: { showFooter: true }
         },
         {
             name: 'login',
             path: '/login',
-            component: TheLogin
+            component: TheLogin,
+            meta: { showFooter: false }
         },
         {
             name: 'register',
             path: '/register',
-            component: TheRegister
+            component: TheRegister,
+            meta: { showFooter: false }
         },
         {
             path: '*',

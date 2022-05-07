@@ -3,16 +3,18 @@
     <TypeNav />
     <ListContainer />
     <TodayRecommend />
+    <TheRank />
   </div>
 </template>
 
 <script>
 import ListContainer from '@/components/Home/ListContainer'
 import TodayRecommend from '@/components/Home/TodayRecommend'
+import TheRank from '@/components/Home/TheRank'
 
 export default {
   name: 'TheHome',
-  components: { TodayRecommend, ListContainer }
+  components: { TheRank, TodayRecommend, ListContainer }
 }
 </script>
 

@@ -7,6 +7,7 @@
     <GuessLike />
     <TheFloor />
     <TheFloor />
+    <TheBrand />
   </div>
 </template>
 
@@ -16,10 +17,11 @@ import TodayRecommend from '@/components/Home/TodayRecommend'
 import TheRank from '@/components/Home/GoodsRank'
 import GuessLike from '@/components/Home/GuessLike'
 import TheFloor from '@/components/Home/TheFloor'
+import TheBrand from '@/components/Home/TheBrand'
 
 export default {
   name: 'TheHome',
-  components: { TheFloor, GuessLike, TheRank, TodayRecommend, ListContainer }
+  components: { TheBrand, TheFloor, GuessLike, TheRank, TodayRecommend, ListContainer }
 }
 </script>
 

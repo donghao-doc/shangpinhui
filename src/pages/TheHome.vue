@@ -1,12 +1,16 @@
 <template>
   <div>
     <TypeNav />
+    <ListContainer />
   </div>
 </template>
 
 <script>
+import ListContainer from '@/components/Home/ListContainer'
+
 export default {
-  name: 'TheHome'
+  name: 'TheHome',
+  components: { ListContainer }
 }
 </script>
 

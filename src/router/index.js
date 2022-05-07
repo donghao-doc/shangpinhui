@@ -5,6 +5,23 @@ import TheSearch from '@/pages/TheSearch'
 import TheLogin from '@/pages/TheLogin'
 import TheRegister from '@/pages/TheRegister'
 
+const originPush = VueRouter.prototype.push
+const originReplace = VueRouter.prototype.replace
+VueRouter.prototype.push = function (location, resolve, reject) {
+    if (resolve && reject) {
+        originPush.call(this, location, resolve, reject)
+    } else {
+        originPush.call(this, location, () => {}, () => {})
+    }
+}
+VueRouter.prototype.replace = function (location, resolve, reject) {
+    if (resolve && reject) {
+        originReplace.call(this, location, resolve, reject)
+    } else {
+        originReplace.call(this, location, () => {}, () => {})
+    }
+}
+
 Vue.use(VueRouter)
 
 export default new VueRouter({
@@ -17,7 +34,7 @@ export default new VueRouter({
         },
         {
             name: 'search',
-            path: '/search',
+            path: '/search/:keyword?',
             component: TheSearch,
             meta: { showFooter: true }
         },

@@ -10,7 +10,7 @@
 <script>
 import ListContainer from '@/components/Home/ListContainer'
 import TodayRecommend from '@/components/Home/TodayRecommend'
-import TheRank from '@/components/Home/TheRank'
+import TheRank from '@/components/Home/GoodsRank'
 
 export default {
   name: 'TheHome',

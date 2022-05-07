@@ -86,7 +86,7 @@
 
 <script>
 export default {
-  name: 'TheRank'
+  name: 'GoodsRank'
 }
 </script>
 

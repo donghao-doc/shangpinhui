@@ -21,7 +21,7 @@
             <h3>
               <a href="">{{category.categoryName}}</a>
             </h3>
-            <div class="item-list clearfix">
+            <div :class="{active: currentIndex === index}" class="item-list clearfix">
               <div v-for="subCategory in category.categoryChild" :key="subCategory.categoryId" class="subitem">
                 <dl class="fore">
                   <dt>
@@ -139,6 +139,8 @@ export default {
             top: 0;
             z-index: 9999 !important;
 
+            &.active { display: block; }
+
             .subitem {
               float: left;
               width: 650px;
@@ -182,11 +184,11 @@ export default {
             }
           }
 
-          &:hover {
-            .item-list {
-              display: block;
-            }
-          }
+          //&:hover {
+          //  .item-list {
+          //    display: block;
+          //  }
+          //}
         }
       }
     }

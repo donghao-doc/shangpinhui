@@ -1,4 +1,6 @@
 import axios from 'axios'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 
 const requests = axios.create({
     baseURL: '/api',
@@ -8,15 +10,20 @@ const requests = axios.create({
 /**
  * 请求拦截器
  */
-requests.interceptors.request.use(config => config)
+requests.interceptors.request.use(config => {
+    NProgress.start();
+    return config
+})
 
 /**
  * 响应拦截器
  */
 requests.interceptors.response.use(res => {
+    NProgress.done();
     return res.data
 }, error => {
     console.log('error:', error)
+    NProgress.done();
     return Promise.reject(new Error('fail'))
 })
 

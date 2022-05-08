@@ -45,6 +45,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import { throttle } from 'lodash'
 
 export default {
   name: 'TypeNav',
@@ -62,9 +63,10 @@ export default {
   methods: {
     ...mapActions('home', ['getCategoryList']),
 
-    handleEnter(index) {
+    handleEnter: throttle(function (index) {
       this.currentIndex = index
-    },
+    }, 50),
+
     handleLeave() {
       this.currentIndex = -1
     }

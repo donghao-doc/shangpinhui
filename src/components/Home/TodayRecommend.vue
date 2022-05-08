@@ -40,8 +40,8 @@ export default {
     .recommend {
       height: 165px;
       background-color: #eaeaea;
-      margin: 10px 0;
       display: flex;
+      margin: 20px 0 10px;
 
       .clock {
         width: 16.67%;

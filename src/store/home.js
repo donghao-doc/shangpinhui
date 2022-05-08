@@ -5,7 +5,13 @@ export default {
     state: {
         categoryList: null
     },
-    getters: {},
+    getters: {
+        categoryList(state) {
+            if (state.categoryList) {
+                return state.categoryList.slice(0, 16)
+            }
+        }
+    },
     mutations: {
         SETCATEGORYLIST(state, value) {
             state.categoryList = value

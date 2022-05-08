@@ -16,8 +16,8 @@
       </nav>
 
       <div class="sort">
-        <div class="all-sort-list2">
-          <div v-for="category in categoryList" :key="category.categoryId" class="item bo">
+        <div @mouseleave="handleLeave" class="all-sort-list2">
+          <div @mouseenter="handleEnter(index)" v-for="(category, index) in categoryList" :key="category.categoryId" :class="{active: currentIndex === index}" class="item">
             <h3>
               <a href="">{{category.categoryName}}</a>
             </h3>
@@ -48,6 +48,11 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'TypeNav',
+  data() {
+    return {
+      currentIndex: -1
+    }
+  },
   computed: {
     ...mapState('home', ['categoryList']),
   },
@@ -56,7 +61,14 @@ export default {
     console.log('this.categoryList:', this.categoryList)
   },
   methods: {
-    ...mapActions('home', ['getCategoryList'])
+    ...mapActions('home', ['getCategoryList']),
+
+    handleEnter(index) {
+      this.currentIndex = index
+    },
+    handleLeave() {
+      this.currentIndex = -1
+    }
   }
 }
 </script>
@@ -103,6 +115,7 @@ export default {
 
       .all-sort-list2 {
         .item {
+          &.active { background: skyblue; }
           h3 {
             line-height: 30px;
             font-size: 14px;

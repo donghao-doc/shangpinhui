@@ -41,13 +41,13 @@
                 <li>滚筒洗衣机</li>
                 <li>电热水器</li>
               </ul>
-              <img src="@/assets/home/floor-1-1.png" alt="floor-1-1">
+              <img src="../../../public/images/floor-1-1.png" alt="floor-1-1">
             </div>
             <div class="floorBanner">
               <div class="swiper-container" id="floor1Swiper">
                 <div class="swiper-wrapper">
                   <div class="swiper-slide">
-                    <img src="@/assets/home/floor-1-b01.png" alt="floor-1-b01">
+                    <img src="../../../public/images/floor-1-b01.png" alt="floor-1-b01">
                   </div>
                   <!--<div class="swiper-slide">-->
                   <!--  <img src="@/assets/home/floor-1-b02.png" alt="floor-1-b02">-->
@@ -67,22 +67,22 @@
             <div class="split">
               <span class="floor-x-line"></span>
               <div class="floor-conver-pit">
-                <img src="@/assets/home/floor-1-2.png" alt="floor-1-2">
+                <img src="../../../public/images/floor-1-2.png" alt="floor-1-2">
               </div>
               <div class="floor-conver-pit">
-                <img src="@/assets/home/floor-1-3.png" alt="floor-1-3">
+                <img src="../../../public/images/floor-1-3.png" alt="floor-1-3">
               </div>
             </div>
             <div class="split center">
-              <img src="@/assets/home/floor-1-4.png" alt="floor-1-4">
+              <img src="../../../public/images/floor-1-4.png" alt="floor-1-4">
             </div>
             <div class="split">
               <span class="floor-x-line"></span>
               <div class="floor-conver-pit">
-                <img src="@/assets/home/floor-1-5.png" alt="floor-1-5">
+                <img src="../../../public/images/floor-1-5.png" alt="floor-1-5">
               </div>
               <div class="floor-conver-pit">
-                <img src="@/assets/home/floor-1-6.png" alt="floor-1-6">
+                <img src="../../../public/images/floor-1-6.png" alt="floor-1-6">
               </div>
             </div>
           </div>

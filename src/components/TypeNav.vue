@@ -16,20 +16,20 @@
       </nav>
 
       <div class="sort">
-        <div @mouseleave="handleLeave" class="all-sort-list2">
+        <div @click="goSearch" @mouseleave="handleLeave" class="all-sort-list2">
           <div @mouseenter="handleEnter(index)" v-for="(category, index) in categoryList" :key="category.categoryId" :class="{active: currentIndex === index}" class="item">
             <h3>
-              <a href="">{{category.categoryName}}</a>
+              <a :data-categoryName="category.categoryName" :data-category1Id="category.categoryId" href="javascript:">{{category.categoryName}}</a>
             </h3>
             <div :class="{active: currentIndex === index}" class="item-list clearfix">
               <div v-for="subCategory in category.categoryChild" :key="subCategory.categoryId" class="subitem">
                 <dl class="fore">
                   <dt>
-                    <a href="">{{subCategory.categoryName}}</a>
+                    <a :data-categoryName="subCategory.categoryName" :data-category2Id="subCategory.categoryId" href="javascript:">{{subCategory.categoryName}}</a>
                   </dt>
                   <dd>
                     <em v-for="itemCategory in subCategory.categoryChild" :key="itemCategory.categoryId">
-                      <a href="">{{itemCategory.categoryName}}</a>
+                      <a :data-categoryName="itemCategory.categoryName" :data-category3Id="itemCategory.categoryId" href="javascript:">{{itemCategory.categoryName}}</a>
                     </em>
                   </dd>
                 </dl>
@@ -69,6 +69,21 @@ export default {
 
     handleLeave() {
       this.currentIndex = -1
+    },
+
+    goSearch: function (event) {
+      const { categoryname, category1id, category2id, category3id } = event.target.dataset
+      const location = { name: 'search', query: { categoryname } }
+      if (category1id) {
+        location.query.category1id = category1id
+      }
+      if (category2id) {
+        location.query.category2id = category2id
+      }
+      if (category3id) {
+        location.query.category3id = category3id
+      }
+      this.$router.push(location)
     }
   }
 }

@@ -2,7 +2,39 @@
   <div class="type-nav">
     <div class="container">
 
-      <h2 class="all">全部商品分类</h2>
+      <div @mouseleave="handleLeave" @mouseenter="enterAll">
+        <h2 class="all">全部商品分类</h2>
+
+        <transition name="sort">
+          <div v-show="showSort" class="sort">
+            <div @click="goSearch" class="all-sort-list2">
+              <div @mouseenter="handleEnter(index)" v-for="(category, index) in categoryList" :key="category.categoryId"
+                   :class="{active: currentIndex === index}" class="item">
+                <h3>
+                  <a :data-categoryName="category.categoryName" :data-category1Id="category.categoryId"
+                     href="javascript:">{{ category.categoryName }}</a>
+                </h3>
+                <div :class="{active: currentIndex === index}" class="item-list clearfix">
+                  <div v-for="subCategory in category.categoryChild" :key="subCategory.categoryId" class="subitem">
+                    <dl class="fore">
+                      <dt>
+                        <a :data-categoryName="subCategory.categoryName" :data-category2Id="subCategory.categoryId"
+                           href="javascript:">{{ subCategory.categoryName }}</a>
+                      </dt>
+                      <dd>
+                        <em v-for="itemCategory in subCategory.categoryChild" :key="itemCategory.categoryId">
+                          <a :data-categoryName="itemCategory.categoryName" :data-category3Id="itemCategory.categoryId"
+                             href="javascript:">{{ itemCategory.categoryName }}</a>
+                        </em>
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </transition>
+      </div>
 
       <nav class="nav">
         <a href="#">服装城</a>
@@ -14,30 +46,6 @@
         <a href="#">有趣</a>
         <a href="#">秒杀</a>
       </nav>
-
-      <div class="sort">
-        <div @click="goSearch" @mouseleave="handleLeave" class="all-sort-list2">
-          <div @mouseenter="handleEnter(index)" v-for="(category, index) in categoryList" :key="category.categoryId" :class="{active: currentIndex === index}" class="item">
-            <h3>
-              <a :data-categoryName="category.categoryName" :data-category1Id="category.categoryId" href="javascript:">{{category.categoryName}}</a>
-            </h3>
-            <div :class="{active: currentIndex === index}" class="item-list clearfix">
-              <div v-for="subCategory in category.categoryChild" :key="subCategory.categoryId" class="subitem">
-                <dl class="fore">
-                  <dt>
-                    <a :data-categoryName="subCategory.categoryName" :data-category2Id="subCategory.categoryId" href="javascript:">{{subCategory.categoryName}}</a>
-                  </dt>
-                  <dd>
-                    <em v-for="itemCategory in subCategory.categoryChild" :key="itemCategory.categoryId">
-                      <a :data-categoryName="itemCategory.categoryName" :data-category3Id="itemCategory.categoryId" href="javascript:">{{itemCategory.categoryName}}</a>
-                    </em>
-                  </dd>
-                </dl>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
     </div>
   </div>
@@ -51,17 +59,23 @@ export default {
   name: 'TypeNav',
   data() {
     return {
-      currentIndex: -1
+      currentIndex: -1,
+      showSort: true
     }
   },
   computed: {
     ...mapGetters('home', ['categoryList']),
   },
   async mounted() {
+    if (this.$route.path !== '/') this.showSort = false
     await this.getCategoryList()
   },
   methods: {
     ...mapActions('home', ['getCategoryList']),
+
+    enterAll() {
+      this.showSort = true
+    },
 
     handleEnter: throttle(function (index) {
       this.currentIndex = index
@@ -69,6 +83,7 @@ export default {
 
     handleLeave() {
       this.currentIndex = -1
+      if (this.$route.path !== '/') this.showSort = false
     },
 
     goSearch: function (event) {
@@ -90,6 +105,10 @@ export default {
 </script>
 
 <style scoped lang="less">
+.sort-enter, .sort-leave-to { opacity: 0; }
+.sort-enter-active, .sort-leave-active { transition: all .2s linear; }
+.sort-enter-to, .sort-leave { opacity: 1; }
+
 .type-nav {
   border-bottom: 2px solid #e1251b;
 
@@ -131,7 +150,10 @@ export default {
 
       .all-sort-list2 {
         .item {
-          &.active { background: skyblue; }
+          &.active {
+            background: skyblue;
+          }
+
           h3 {
             line-height: 30px;
             font-size: 14px;
@@ -156,7 +178,9 @@ export default {
             top: 0;
             z-index: 9999 !important;
 
-            &.active { display: block; }
+            &.active {
+              display: block;
+            }
 
             .subitem {
               float: left;

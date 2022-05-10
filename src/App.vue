@@ -16,9 +16,10 @@ export default {
   components: { TheFooter, TheHeader },
   mounted() {
     this.getCategoryList()
+    this.getBannerList()
   },
   methods: {
-    ...mapActions('home', ['getCategoryList']),
+    ...mapActions('home', ['getCategoryList', 'getBannerList']),
   }
 }
 </script>

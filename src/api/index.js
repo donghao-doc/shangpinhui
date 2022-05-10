@@ -1,7 +1,14 @@
-import request from '@/api/request'
+import request from '@/api/ajax'
+import requestMock from '@/api/ajaxMock'
 
 /**
  * 请求三级联动数据
  * @returns {Promise}
  */
 export const reqCategoryList = () => request({ url: '/product/getBaseCategoryList', method: 'get' })
+
+/**
+ * 请求首页轮播图数据
+ * @returns {Promise}
+ */
+export const reqBannerList = () => requestMock.get('/banner')

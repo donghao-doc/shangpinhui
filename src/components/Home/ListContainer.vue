@@ -5,18 +5,9 @@
         <!--banner轮播-->
         <div class="swiper-container" id="mySwiper">
           <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <img src="../../../public/images/banner1.jpg" alt="banner1">
+            <div v-for="banner in bannerList" :key="banner.id" class="swiper-slide">
+              <img :src="banner.imgUrl" alt="banner">
             </div>
-            <!--<div class="swiper-slide">-->
-            <!--  <img src="@/assets/home/banner2.jpg" alt="banner2">-->
-            <!--</div>-->
-            <!--<div class="swiper-slide">-->
-            <!--  <img src="@/assets/home/banner3.jpg" alt="banner3">-->
-            <!--</div>-->
-            <!--<div class="swiper-slide">-->
-            <!--  <img src="@/assets/home/banner4.jpg" alt="banner4">-->
-            <!--</div>-->
           </div>
           <!-- 如果需要分页器 -->
           <div class="swiper-pagination"></div>
@@ -110,8 +101,13 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
-  name: 'ListContainer'
+  name: 'ListContainer',
+  computed: {
+    ...mapGetters('home', ['bannerList'])
+  }
 }
 </script>
 

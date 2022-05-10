@@ -53,15 +53,12 @@ export default {
   },
   methods: {
     goSearch() {
-      this.$router.push({
+      const location = {
         name: 'search',
-        params: {
-          keyword: this.keyword || undefined
-        },
-        query: {
-          key: this.keyword.toUpperCase()
-        }
-      })
+        params: { keyword: this.keyword || undefined }
+      }
+      if (this.$route.query) location.query = this.$route.query
+      this.$router.push(location)
     }
   }
 }

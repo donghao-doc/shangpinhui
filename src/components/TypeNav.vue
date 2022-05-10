@@ -85,16 +85,14 @@ export default {
 
     goSearch: function (event) {
       const { categoryname, category1id, category2id, category3id } = event.target.dataset
-      const location = { name: 'search', query: { categoryname } }
-      if (category1id) {
-        location.query.category1id = category1id
+      const location = {
+        name: 'search',
+        query: { categoryname }
       }
-      if (category2id) {
-        location.query.category2id = category2id
-      }
-      if (category3id) {
-        location.query.category3id = category3id
-      }
+      if (this.$route.params) location.params = this.$route.params
+      if (category1id) location.query.category1id = category1id
+      if (category2id) location.query.category2id = category2id
+      if (category3id) location.query.category3id = category3id
       this.$router.push(location)
     }
   }

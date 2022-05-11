@@ -2,20 +2,7 @@
   <div class="list-container">
     <div class="sortList clearfix">
       <div class="center">
-        <!--banner轮播-->
-        <div class="swiper-container" id="mySwiper">
-          <div class="swiper-wrapper">
-            <div v-for="banner in bannerList" :key="banner.id" class="swiper-slide">
-              <img :src="banner.imgUrl" alt="banner">
-            </div>
-          </div>
-          <!-- 如果需要分页器 -->
-          <div class="swiper-pagination"></div>
-
-          <!-- 如果需要导航按钮 -->
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-button-next"></div>
-        </div>
+        <BaseSwiper :swiperSlideList="bannerList" :scrollbar="false"/>
       </div>
       <div class="right">
         <div class="news">
@@ -102,9 +89,11 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import BaseSwiper from '@/components/Base/BaseSwiper'
 
 export default {
   name: 'ListContainer',
+  components: { BaseSwiper },
   computed: {
     ...mapGetters('home', ['bannerList'])
   }

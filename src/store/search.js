@@ -5,7 +5,17 @@ export default {
     state: {
         searchInfo: null
     },
-    getters: {},
+    getters: {
+        attrsList(state) {
+            return state.searchInfo ? state.searchInfo.attrsList : []
+        },
+        goodsList(state) {
+            return state.searchInfo ? state.searchInfo.goodsList : []
+        },
+        trademarkList(state) {
+            return state.searchInfo ? state.searchInfo.trademarkList : []
+        }
+    },
     mutations: {
         SETSEARCHINFO(state, value) {
             state.searchInfo = value

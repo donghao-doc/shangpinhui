@@ -6,7 +6,9 @@ import '@/mock/mockServe.js'
 import 'swiper/css/swiper.min.css'
 
 import TypeNav from '@/components/TypeNav'
+import BaseSwiper from '@/components/Base/BaseSwiper'
 Vue.component(TypeNav.name, TypeNav)
+Vue.component(BaseSwiper.name, BaseSwiper)
 
 Vue.config.productionTip = false
 

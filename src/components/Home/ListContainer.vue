@@ -89,11 +89,9 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import BaseSwiper from '@/components/Base/BaseSwiper'
 
 export default {
   name: 'ListContainer',
-  components: { BaseSwiper },
   computed: {
     ...mapGetters('home', ['bannerList'])
   }

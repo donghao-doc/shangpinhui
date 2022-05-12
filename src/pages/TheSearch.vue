@@ -334,9 +334,20 @@
 
 <script>
 import SearchSelector from '@/components/Search/SearchSelector'
+import { mapState, mapActions } from 'vuex'
+
 export default {
   name: 'TheSearch',
-  components: { SearchSelector }
+  components: { SearchSelector },
+  computed: {
+    ...mapState('search', ['searchInfo'])
+  },
+  mounted() {
+    this.getSearchInfo()
+  },
+  methods: {
+    ...mapActions('search', ['getSearchInfo'])
+  }
 }
 </script>
 

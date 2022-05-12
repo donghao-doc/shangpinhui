@@ -55,7 +55,7 @@ export default {
         async getFloorList(context) {
             try {
                 const result = await reqFloorList()
-                console.log('getFloorList:', result)
+                // console.log('getFloorList:', result)
                 if (result.code === 200) {
                     context.commit('SETFLOORLIST', result.data)
                 }

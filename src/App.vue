@@ -17,9 +17,10 @@ export default {
   mounted() {
     this.getCategoryList()
     this.getBannerList()
+    this.getFloorList()
   },
   methods: {
-    ...mapActions('home', ['getCategoryList', 'getBannerList']),
+    ...mapActions('home', ['getCategoryList', 'getBannerList', 'getFloorList']),
   }
 }
 </script>

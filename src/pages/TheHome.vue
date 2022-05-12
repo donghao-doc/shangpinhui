@@ -5,8 +5,7 @@
     <TodayRecommend />
     <TheRank />
     <GuessLike />
-    <TheFloor />
-    <TheFloor />
+    <TheFloor v-for="floor in floorList" :key="floor.id" :floor="floor"/>
     <TheBrand />
   </div>
 </template>
@@ -18,10 +17,14 @@ import TheRank from '@/components/Home/GoodsRank'
 import GuessLike from '@/components/Home/GuessLike'
 import TheFloor from '@/components/Home/TheFloor'
 import TheBrand from '@/components/Home/TheBrand'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'TheHome',
-  components: { TheBrand, TheFloor, GuessLike, TheRank, TodayRecommend, ListContainer }
+  components: { TheBrand, TheFloor, GuessLike, TheRank, TodayRecommend, ListContainer },
+  computed: {
+    ...mapGetters('home', ['floorList'])
+  },
 }
 </script>
 

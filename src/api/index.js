@@ -12,3 +12,9 @@ export const reqCategoryList = () => request({ url: '/product/getBaseCategoryLis
  * @returns {Promise}
  */
 export const reqBannerList = () => requestMock.get('/banner')
+
+/**
+ * 请求楼层数据
+ * @returns {Promise}
+ */
+export const reqFloorList = () => requestMock.get('/floor')

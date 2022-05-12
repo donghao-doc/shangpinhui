@@ -87,7 +87,7 @@ export default {
       const { categoryname, category1id, category2id, category3id } = event.target.dataset
       const location = {
         name: 'search',
-        query: { categoryname }
+        query: { categoryName: categoryname }
       }
       if (this.$route.params) location.params = this.$route.params
       if (category1id) location.query.category1Id = category1id

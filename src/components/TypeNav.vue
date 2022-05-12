@@ -90,9 +90,9 @@ export default {
         query: { categoryname }
       }
       if (this.$route.params) location.params = this.$route.params
-      if (category1id) location.query.category1id = category1id
-      if (category2id) location.query.category2id = category2id
-      if (category3id) location.query.category3id = category3id
+      if (category1id) location.query.category1Id = category1id
+      if (category2id) location.query.category2Id = category2id
+      if (category3id) location.query.category3Id = category3id
       this.$router.push(location)
     }
   }

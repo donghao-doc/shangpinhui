@@ -22,7 +22,7 @@
         </div>
 
         <!--selector-->
-        <!--<SearchSelector />-->
+        <SearchSelector />
 
         <!--details-->
         <div class="details clearfix">
@@ -333,8 +333,10 @@
 </template>
 
 <script>
+import SearchSelector from '@/components/Search/SearchSelector'
 export default {
-  name: 'TheSearch'
+  name: 'TheSearch',
+  components: { SearchSelector }
 }
 </script>
 

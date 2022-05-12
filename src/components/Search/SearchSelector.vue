@@ -3,8 +3,8 @@
     <div class="type-wrap logo">
       <div class="fl key brand">品牌</div>
       <div class="value logos">
-        <ul class="logo-list">
-          <li v-for="trademark in trademarkList" :key="trademark.tmId">
+        <ul @click="selectBrand" class="logo-list">
+          <li v-for="trademark in trademarkList" :key="trademark.tmId" :data-trademark="JSON.stringify(trademark)">
             {{trademark.tmName}}
           </li>
         </ul>
@@ -35,6 +35,13 @@ export default {
   name: 'SearchSelector',
   computed: {
     ...mapGetters('search', ['trademarkList', 'attrsList'])
+  },
+  methods: {
+    selectBrand(event) {
+      let { trademark } = event.target.dataset
+      trademark = JSON.parse(trademark)
+      this.$emit('tradeMarkInfo', trademark)
+    }
   }
 }
 </script>

@@ -9,24 +9,17 @@
         <!--bread-->
         <div class="bread">
           <ul class="fl sui-breadcrumb">
-            <li>
-              <a href="#">全部结果</a>
-            </li>
+            <li><a href="#">全部结果</a></li>
           </ul>
           <ul class="fl sui-tag">
-            <li v-if="searchParams.categoryName" class="with-x">
-              {{searchParams.categoryName}}
-              <i @click="removeCategoryName">×</i>
-            </li>
-            <li v-if="searchParams.keyword" class="with-x">
-              {{searchParams.keyword}}
-              <i @click="removeKeyword">×</i>
-            </li>
+            <li v-if="searchParams.categoryName" class="with-x">{{searchParams.categoryName}}<i @click="removeCategoryName">×</i></li>
+            <li v-if="searchParams.keyword" class="with-x">{{searchParams.keyword}}<i @click="removeKeyword">×</i></li>
+            <li v-if="searchParams.trademark" class="with-x">{{searchParams.trademark.split(':')[1]}}<i @click="removeTrademark">×</i></li>
           </ul>
         </div>
 
         <!--selector-->
-        <SearchSelector/>
+        <SearchSelector @tradeMarkInfo="tradeMarkInfo"/>
 
         <!--details-->
         <div class="details clearfix">
@@ -119,7 +112,7 @@
 
 <script>
 import SearchSelector from '@/components/Search/SearchSelector'
-import { mapState, mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapState } from 'vuex'
 
 export default {
   name: 'TheSearch',
@@ -175,7 +168,18 @@ export default {
       this.getSearchInfo(this.searchParams)
       const { query } = this.$route
       if (query) this.$router.push({ name: 'search', query })
-    }
+    },
+
+    removeTrademark() {
+      Object.assign(this.searchParams, { trademark: undefined })
+      this.getSearchInfo(this.searchParams)
+    },
+
+    tradeMarkInfo(value) {
+      this.searchParams.trademark = `${value.tmId}:${value.tmName}`
+      console.log('this.searchParams:', this.searchParams)
+      this.getSearchInfo(this.searchParams)
+    },
   }
 }
 </script>

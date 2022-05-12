@@ -51,6 +51,9 @@ export default {
       keyword: ''
     }
   },
+  mounted() {
+    this.$bus.$on('updateKeyword', value => this.keyword = value)
+  },
   methods: {
     goSearch() {
       const location = {

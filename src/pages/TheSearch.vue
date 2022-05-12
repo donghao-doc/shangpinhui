@@ -14,10 +14,14 @@
             </li>
           </ul>
           <ul class="fl sui-tag">
-            <li class="with-x">手机</li>
-            <li class="with-x">iphone<i>×</i></li>
-            <li class="with-x">华为<i>×</i></li>
-            <li class="with-x">OPPO<i>×</i></li>
+            <li v-if="searchParams.categoryName" class="with-x">
+              {{searchParams.categoryName}}
+              <i @click="removeCategoryName">×</i>
+            </li>
+            <li v-if="searchParams.keyword" class="with-x">
+              {{searchParams.keyword}}
+              <i @click="removeKeyword">×</i>
+            </li>
           </ul>
         </div>
 
@@ -143,6 +147,7 @@ export default {
   mounted() {
     const { query, params } = this.$route
     Object.assign(this.searchParams, query, params)
+    console.log('this.searchParams:', this.searchParams)
     this.getSearchInfo(this.searchParams)
     Object.assign(this.searchParams, { category1Id: '', category2Id: '', category3Id: '' })
   },
@@ -155,7 +160,22 @@ export default {
     }
   },
   methods: {
-    ...mapActions('search', ['getSearchInfo'])
+    ...mapActions('search', ['getSearchInfo']),
+
+    removeCategoryName() {
+      Object.assign(this.searchParams, { categoryName: undefined, category1Id: undefined, category2Id: undefined, category3Id: undefined })
+      this.getSearchInfo(this.searchParams)
+      const { params } = this.$route
+      if (params) this.$router.push({ name: 'search', params })
+    },
+
+    removeKeyword() {
+      Object.assign(this.searchParams, { keyword: undefined })
+      this.$bus.$emit('updateKeyword', '')
+      this.getSearchInfo(this.searchParams)
+      const { query } = this.$route
+      if (query) this.$router.push({ name: 'search', query })
+    }
   }
 }
 </script>

@@ -13,6 +13,9 @@ Vue.component(BaseSwiper.name, BaseSwiper)
 Vue.config.productionTip = false
 
 new Vue({
+    beforeCreate() {
+        Vue.prototype.$bus = this
+    },
     router,
     store,
     render: h => h(App),

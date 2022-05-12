@@ -22,7 +22,7 @@
         </div>
 
         <!--selector-->
-        <SearchSelector />
+        <SearchSelector/>
 
         <!--details-->
         <div class="details clearfix">
@@ -60,7 +60,7 @@
                   <div class="price">
                     <strong>
                       <em>¥</em>
-                      <i>{{goods.price}}.00</i>
+                      <i>{{ goods.price }}.00</i>
                     </strong>
                   </div>
                   <div class="attr">
@@ -120,12 +120,39 @@ import { mapState, mapActions, mapGetters } from 'vuex'
 export default {
   name: 'TheSearch',
   components: { SearchSelector },
+  data() {
+    return {
+      searchParams: {
+        'category1Id': '',
+        'category2Id': '',
+        'category3Id': '',
+        'categoryName': '',
+        'keyword': '',
+        'order': '',
+        'pageNo': 1,
+        'pageSize': 10,
+        'props': [],
+        'trademark': ''
+      }
+    }
+  },
   computed: {
     ...mapState('search', ['searchInfo']),
     ...mapGetters('search', ['attrsList', 'goodsList', 'trademarkList'])
   },
   mounted() {
-    this.getSearchInfo()
+    const { query, params } = this.$route
+    Object.assign(this.searchParams, query, params)
+    this.getSearchInfo(this.searchParams)
+    Object.assign(this.searchParams, { category1Id: '', category2Id: '', category3Id: '' })
+  },
+  watch: {
+    $route(newValue) {
+      const { query, params } = newValue
+      Object.assign(this.searchParams, query, params)
+      this.getSearchInfo(this.searchParams)
+      Object.assign(this.searchParams, { category1Id: '', category2Id: '', category3Id: '' })
+    }
   },
   methods: {
     ...mapActions('search', ['getSearchInfo'])

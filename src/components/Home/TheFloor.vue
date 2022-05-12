@@ -2,29 +2,11 @@
   <div class="floor">
     <div class="py-container">
       <div class="title clearfix">
-        <h3 class="fl">家用电器</h3>
+        <h3 class="fl">{{floor.name}}</h3>
         <div class="fr">
           <ul class="nav-tabs clearfix">
-            <li class="active">
-              <a href="#" data-toggle="tab">热门</a>
-            </li>
-            <li>
-              <a href="#" data-toggle="tab">大家电</a>
-            </li>
-            <li>
-              <a href="#" data-toggle="tab">生活电器</a>
-            </li>
-            <li>
-              <a href="#" data-toggle="tab">厨房电器</a>
-            </li>
-            <li>
-              <a href="#" data-toggle="tab">应季电器</a>
-            </li>
-            <li>
-              <a href="#" data-toggle="tab">空气/净水</a>
-            </li>
-            <li>
-              <a href="#" data-toggle="tab">高端电器</a>
+            <li v-for="nav in floor.navList" :key="nav.text">
+              <a href="#" data-toggle="tab">{{nav.text}}</a>
             </li>
           </ul>
         </div>
@@ -34,55 +16,26 @@
           <div class="floor-1">
             <div class="blockgary">
               <ul class="jd-list">
-                <li>节能补贴</li>
-                <li>4K电视</li>
-                <li>空气净化器</li>
-                <li>IH电饭煲</li>
-                <li>滚筒洗衣机</li>
-                <li>电热水器</li>
+                <li v-for="keyword in floor.keywords" :key="keyword">{{keyword}}</li>
               </ul>
-              <img src="../../../public/images/floor-1-1.png" alt="floor-1-1">
+              <img :src="floor.imgUrl" alt="floor-1-1">
             </div>
             <div class="floorBanner">
-              <div class="swiper-container" id="floor1Swiper">
-                <div class="swiper-wrapper">
-                  <div class="swiper-slide">
-                    <img src="../../../public/images/floor-1-b01.png" alt="floor-1-b01">
-                  </div>
-                  <!--<div class="swiper-slide">-->
-                  <!--  <img src="@/assets/home/floor-1-b02.png" alt="floor-1-b02">-->
-                  <!--</div>-->
-                  <!--<div class="swiper-slide">-->
-                  <!--  <img src="@/assets/home/floor-1-b03.png" alt="floor-1-b03">-->
-                  <!--</div>-->
-                </div>
-                <!-- 如果需要分页器 -->
-                <div class="swiper-pagination"></div>
-
-                <!-- 如果需要导航按钮 -->
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-              </div>
+              <BaseSwiper :swiperSlideList="floor.carouselList" :scrollbar="false"/>
             </div>
             <div class="split">
               <span class="floor-x-line"></span>
-              <div class="floor-conver-pit">
-                <img src="../../../public/images/floor-1-2.png" alt="floor-1-2">
-              </div>
-              <div class="floor-conver-pit">
-                <img src="../../../public/images/floor-1-3.png" alt="floor-1-3">
+              <div v-for="(recommend, index) in floor.recommendList.slice(0, 2)" :key="index" class="floor-conver-pit">
+                <img :src="recommend" alt="img">
               </div>
             </div>
             <div class="split center">
-              <img src="../../../public/images/floor-1-4.png" alt="floor-1-4">
+              <img :src="floor.bigImg" alt="floor-1-4">
             </div>
             <div class="split">
               <span class="floor-x-line"></span>
-              <div class="floor-conver-pit">
-                <img src="../../../public/images/floor-1-5.png" alt="floor-1-5">
-              </div>
-              <div class="floor-conver-pit">
-                <img src="../../../public/images/floor-1-6.png" alt="floor-1-6">
+              <div v-for="(recommend, index) in floor.recommendList.slice(2, 4)" :key="index" class="floor-conver-pit">
+                <img :src="recommend" alt="img">
               </div>
             </div>
           </div>
@@ -94,7 +47,8 @@
 
 <script>
 export default {
-  name: 'TheFloor'
+  name: 'TheFloor',
+  props: ['floor'],
 }
 </script>
 

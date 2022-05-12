@@ -1,5 +1,5 @@
 <template>
-  <div class="swiper-container">
+  <div v-if="swiperSlideList.length" ref="swiperContainer" class="swiper-container">
 
     <div class="swiper-wrapper">
       <div v-for="(swiperSlide, index) in swiperSlideList" :key="index" class="swiper-slide">
@@ -35,35 +35,39 @@ export default {
     navigation: { type: Boolean, default: true }
   },
   watch: {
-    swiperSlideList() {
-      this.$nextTick(() => {
-        new Swiper('.swiper-container', {
-          direction: 'horizontal',
-          loop: this.loop,
-          autoplay: this.autoplay,
+    swiperSlideList: {
+      immediate: true,
+      handler() {
+        this.$nextTick(() => {
+          new Swiper(this.$refs.swiperContainer, {
+            direction: 'horizontal',
+            loop: this.loop,
+            autoplay: this.autoplay,
 
-          // 如果需要分页器
-          pagination: {
-            el: '.swiper-pagination',
-            clickable: this.paginationClickable,
-          },
+            // 如果需要分页器
+            pagination: {
+              el: '.swiper-pagination',
+              clickable: this.paginationClickable,
+            },
 
-          // 如果需要前进后退按钮
-          navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-          },
+            // 如果需要前进后退按钮
+            navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
+            },
 
-          // 如果需要滚动条
-          scrollbar: {
-            el: '.swiper-scrollbar',
-          },
+            // 如果需要滚动条
+            scrollbar: {
+              el: '.swiper-scrollbar',
+            },
+          })
         })
-      })
+      }
     }
   },
 }
 </script>
 
 <style scoped>
+.swiper-container { border: 1px solid red; }
 </style>

@@ -7,8 +7,10 @@ import 'swiper/css/swiper.min.css'
 
 import TypeNav from '@/components/TypeNav'
 import BaseSwiper from '@/components/BaseSwiper'
+import BasePagination from '@/components/BasePagination'
 Vue.component(TypeNav.name, TypeNav)
 Vue.component(BaseSwiper.name, BaseSwiper)
+Vue.component(BasePagination.name, BasePagination)
 
 Vue.config.productionTip = false
 

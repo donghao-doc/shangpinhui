@@ -12,10 +12,14 @@
             <li><a href="#">全部结果</a></li>
           </ul>
           <ul class="fl sui-tag">
-            <li v-if="searchParams.categoryName" class="with-x">{{searchParams.categoryName}}<i @click="removeCategoryName">×</i></li>
-            <li v-if="searchParams.keyword" class="with-x">{{searchParams.keyword}}<i @click="removeKeyword">×</i></li>
-            <li v-if="searchParams.trademark" class="with-x">{{searchParams.trademark.split(':')[1]}}<i @click="removeTrademark">×</i></li>
-            <li v-for="(props, index) in searchParams.props" :key="props" class="with-x">{{props.split(':')[1]}}<i @click="removeProps(index)">×</i></li>
+            <li v-if="searchParams.categoryName" class="with-x">{{ searchParams.categoryName }}<i
+                @click="removeCategoryName">×</i></li>
+            <li v-if="searchParams.keyword" class="with-x">{{ searchParams.keyword }}<i @click="removeKeyword">×</i>
+            </li>
+            <li v-if="searchParams.trademark" class="with-x">{{ searchParams.trademark.split(':')[1] }}<i
+                @click="removeTrademark">×</i></li>
+            <li v-for="(props, index) in searchParams.props" :key="props" class="with-x">{{ props.split(':')[1] }}<i
+                @click="removeProps(index)">×</i></li>
           </ul>
         </div>
 
@@ -29,12 +33,14 @@
               <ul class="sui-nav">
                 <li @click="sortType(1)" :class="{active: orderType === '1'}">
                   <a href="javascript:">
-                    综合<i v-show="orderType === '1'" :class="['iconfont', {'icon-arrow-up': orderSort === 'asc'}, {'icon-arrow-down': orderSort === 'desc'}]"></i>
+                    综合<i v-show="orderType === '1'"
+                         :class="['iconfont', {'icon-arrow-up': orderSort === 'asc'}, {'icon-arrow-down': orderSort === 'desc'}]"></i>
                   </a>
                 </li>
                 <li @click="sortType(2)" :class="{active: orderType === '2'}">
                   <a href="javascript:">
-                    价格<i v-show="orderType === '2'" :class="['iconfont', {'icon-arrow-up': orderSort === 'asc'}, {'icon-arrow-down': orderSort === 'desc'}]"></i>
+                    价格<i v-show="orderType === '2'"
+                         :class="['iconfont', {'icon-arrow-up': orderSort === 'asc'}, {'icon-arrow-down': orderSort === 'desc'}]"></i>
                   </a>
                 </li>
               </ul>
@@ -67,7 +73,8 @@
               </li>
             </ul>
           </div>
-          <BasePagination />
+          <BasePagination @getPageNo="getPageNo" :page-no="searchParams.pageNo" :page-size="searchParams.pageSize"
+                          :total="total" :continues="5"/>
         </div>
 
       </div>
@@ -77,7 +84,7 @@
 
 <script>
 import SearchSelector from '@/components/Search/SearchSelector'
-import { mapActions, mapGetters, mapState } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'TheSearch',
@@ -99,8 +106,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('search', ['searchInfo']),
-    ...mapGetters('search', ['attrsList', 'goodsList', 'trademarkList']),
+    ...mapGetters('search', ['total', 'attrsList', 'goodsList', 'trademarkList']),
 
     orderType() {
       return this.searchParams.order.split(':')[0]
@@ -128,7 +134,12 @@ export default {
     ...mapActions('search', ['getSearchInfo']),
 
     removeCategoryName() {
-      Object.assign(this.searchParams, { categoryName: undefined, category1Id: undefined, category2Id: undefined, category3Id: undefined })
+      Object.assign(this.searchParams, {
+        categoryName: undefined,
+        category1Id: undefined,
+        category2Id: undefined,
+        category3Id: undefined
+      })
       this.getSearchInfo(this.searchParams)
       const { params } = this.$route
       if (params) this.$router.push({ name: 'search', params })
@@ -169,6 +180,11 @@ export default {
       const type = value === 1 ? 1 : 2
       const sort = this.searchParams.order.split(':')[1] === 'desc' ? 'asc' : 'desc'
       this.searchParams.order = `${type}:${sort}`
+      this.getSearchInfo(this.searchParams)
+    },
+
+    getPageNo(value) {
+      this.searchParams.pageNo = value
       this.getSearchInfo(this.searchParams)
     }
   }
@@ -288,7 +304,10 @@ export default {
                 a {
                   background: #e1251b;
                   color: #fff;
-                  &:hover { color: #fff !important; }
+
+                  &:hover {
+                    color: #fff !important;
+                  }
                 }
               }
             }

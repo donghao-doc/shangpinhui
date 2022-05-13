@@ -1,16 +1,16 @@
 <template>
-  <div class="pagination">
-    <button>上一页</button>
+  <div @click="togglePage" class="pagination">
+    <button data-value="prev" :disabled="pageNo <= 1">上一页</button>
 
-    <button v-show="startNumAndEndNum.start > 1">1</button>
+    <button :data-value="1" v-show="startNumAndEndNum.start > 1">1</button>
     <button v-show="startNumAndEndNum.start > 2">···</button>
 
-    <button v-for="number in continuesArr" :key="number">{{ number }}</button>
+    <button :data-value="number" v-for="number in continuesArr" :key="number" :class="{active: pageNo === number}">{{ number }}</button>
 
     <button v-show="startNumAndEndNum.end < totalPage-1">···</button>
-    <button v-show="startNumAndEndNum.end < totalPage">{{ totalPage }}</button>
+    <button :data-value="totalPage" v-show="startNumAndEndNum.end < totalPage">{{ totalPage }}</button>
 
-    <button>下一页</button>
+    <button data-value="next" :disabled="pageNo >= totalPage">下一页</button>
 
     <button style="margin-left: 30px">共 {{ total }} 条</button>
   </div>
@@ -20,7 +20,7 @@
 export default {
   name: 'BasePagination',
   props: {
-    pageNo: { type: Number, default: 30 },     // 当前页码
+    pageNo: { type: Number, default: 30 },    // 当前页码
     pageSize: { type: Number, default: 3 },   // 每一页多少条数据
     total: { type: Number, default: 91 },     // 一共有多少条数据
     continues: { type: Number, default: 5 },  // 连续的页码数
@@ -57,6 +57,14 @@ export default {
         arr.push(i)
       }
       return arr
+    }
+  },
+  methods: {
+    togglePage(event) {
+      const { value } = event.target.dataset
+      if (!value) return
+      const pageNum = value === 'prev' ? this.pageNo - 1 : value === 'next' ? this.pageNo + 1 : Number(value)
+      this.$emit('getPageNo', pageNum)
     }
   }
 }

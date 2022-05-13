@@ -6,6 +6,9 @@ export default {
         searchInfo: null
     },
     getters: {
+        total(state) {
+            return state.searchInfo ? state.searchInfo.total : 0
+        },
         attrsList(state) {
             return state.searchInfo ? state.searchInfo.attrsList : []
         },

@@ -1,5 +1,6 @@
 <template>
   <div class="clearfix selector">
+
     <div class="type-wrap logo">
       <div class="fl key brand">品牌</div>
       <div class="value logos">
@@ -14,17 +15,19 @@
         <a href="javascript:void(0);">更多</a>
       </div>
     </div>
+
     <div v-for="attrs in attrsList" :key="attrs.attrId" class="type-wrap">
       <div class="fl key">{{attrs.attrName}}</div>
       <div class="fl value">
         <ul class="type-list">
-          <li v-for="(attrValue, index) in attrs.attrValueList" :key="index">
+          <li @click="selectAttr(attrs, attrValue)" v-for="(attrValue, index) in attrs.attrValueList" :key="index">
             <a>{{attrValue}}</a>
           </li>
         </ul>
       </div>
       <div class="fl ext"></div>
     </div>
+
   </div>
 </template>
 
@@ -41,6 +44,10 @@ export default {
       let { trademark } = event.target.dataset
       trademark = JSON.parse(trademark)
       this.$emit('tradeMarkInfo', trademark)
+    },
+
+    selectAttr(attrs, attrValue) {
+      this.$emit('attrInfo', attrs, attrValue)
     }
   }
 }

@@ -27,23 +27,15 @@
           <div class="sui-navbar">
             <div class="navbar-inner filter">
               <ul class="sui-nav">
-                <li class="active">
-                  <a href="#">综合</a>
+                <li @click="sortType(1)" :class="{active: orderType === '1'}">
+                  <a href="javascript:">
+                    综合<i v-show="orderType === '1'" :class="['iconfont', {'icon-arrow-up': orderSort === 'asc'}, {'icon-arrow-down': orderSort === 'desc'}]"></i>
+                  </a>
                 </li>
-                <li>
-                  <a href="#">销量</a>
-                </li>
-                <li>
-                  <a href="#">新品</a>
-                </li>
-                <li>
-                  <a href="#">评价</a>
-                </li>
-                <li>
-                  <a href="#">价格⬆</a>
-                </li>
-                <li>
-                  <a href="#">价格⬇</a>
+                <li @click="sortType(2)" :class="{active: orderType === '2'}">
+                  <a href="javascript:">
+                    价格<i v-show="orderType === '2'" :class="['iconfont', {'icon-arrow-up': orderSort === 'asc'}, {'icon-arrow-down': orderSort === 'desc'}]"></i>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -126,7 +118,7 @@ export default {
         'category3Id': '',
         'categoryName': '',
         'keyword': '',
-        'order': '',
+        'order': '1:desc',
         'pageNo': 1,
         'pageSize': 10,
         'props': [],
@@ -136,7 +128,14 @@ export default {
   },
   computed: {
     ...mapState('search', ['searchInfo']),
-    ...mapGetters('search', ['attrsList', 'goodsList', 'trademarkList'])
+    ...mapGetters('search', ['attrsList', 'goodsList', 'trademarkList']),
+
+    orderType() {
+      return this.searchParams.order.split(':')[0]
+    },
+    orderSort() {
+      return this.searchParams.order.split(':')[1]
+    }
   },
   mounted() {
     const { query, params } = this.$route
@@ -193,6 +192,13 @@ export default {
       this.searchParams.props.push(props)
       this.getSearchInfo(this.searchParams)
     },
+
+    sortType(value) {
+      const type = value === 1 ? 1 : 2
+      const sort = this.searchParams.order.split(':')[1] === 'desc' ? 'asc' : 'desc'
+      this.searchParams.order = `${type}:${sort}`
+      this.getSearchInfo(this.searchParams)
+    }
   }
 }
 </script>
@@ -310,6 +316,7 @@ export default {
                 a {
                   background: #e1251b;
                   color: #fff;
+                  &:hover { color: #fff !important; }
                 }
               }
             }

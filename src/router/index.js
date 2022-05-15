@@ -4,6 +4,7 @@ import TheHome from '@/pages/TheHome'
 import TheSearch from '@/pages/TheSearch'
 import TheLogin from '@/pages/TheLogin'
 import TheRegister from '@/pages/TheRegister'
+import TheDetail from '@/pages/TheDetail'
 
 const originPush = VueRouter.prototype.push
 const originReplace = VueRouter.prototype.replace
@@ -51,8 +52,18 @@ export default new VueRouter({
             meta: { showFooter: false }
         },
         {
+            name: 'detail',
+            path: '/detail/:skuId',
+            component: TheDetail,
+            meta: { showFooter: true }
+        },
+        {
             path: '*',
             redirect: '/'
         }
-    ]
+    ],
+    scrollBehavior() {
+        // 始终滚动到顶部
+        return { y: 0 }
+    }
 })

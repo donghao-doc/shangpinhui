@@ -1,4 +1,4 @@
-import { reqDetailInfo } from '@/api'
+import { reqDetailInfo, reqAddToCart } from '@/api'
 
 export default {
     namespaced: true,
@@ -25,14 +25,22 @@ export default {
         async getDetailInfo(context, skuId) {
             try {
                 const result = await reqDetailInfo(skuId)
-                console.log('getDetailInfo:', result)
+                // console.log('getDetailInfo:', result)
                 if (result.code === 200) {
                     context.commit('SETDETAILINFO', result.data)
                 }
             } catch (err) {
                 console.log('getDetailInfo err:', err)
             }
-
+        },
+        async addToCart(context, skuId, skuNum) {
+            try {
+                const result = await reqAddToCart(skuId, skuNum)
+                console.log('addCart:', result)
+                return result
+            } catch (err) {
+                console.log('addCart err:', err)
+            }
         }
     }
 }

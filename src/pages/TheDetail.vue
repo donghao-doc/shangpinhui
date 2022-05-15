@@ -80,7 +80,7 @@
                 <a @click="changeAddCartCount" data-value="-" href="javascript:" class="mins">-</a>
               </div>
               <div class="add">
-                <a href="javascript:">加入购物车</a>
+                <a @click="addCart" href="javascript:">加入购物车</a>
               </div>
             </div>
           </div>
@@ -361,7 +361,7 @@ export default {
     this.getDetailInfo(skuId)
   },
   methods: {
-    ...mapActions('detail', ['getDetailInfo']),
+    ...mapActions('detail', ['getDetailInfo', 'addToCart']),
 
     changeActive(value, array) {
       array.forEach(item => item.isChecked = '0')
@@ -375,7 +375,6 @@ export default {
 
     changeAddCartCount(event) {
       const { value } = event.target.dataset
-      console.log(value)
       if (value === '+') {
         this.addCartCount += 1
       }
@@ -383,6 +382,16 @@ export default {
         this.addCartCount -= 1
       }
     },
+
+    async addCart() {
+      const result = await this.addToCart(this.$route.params.skuId, this.addCartCount)
+      console.log('111111111:', result)
+      if (result.code === 200 || result.code === 201) {
+        this.$router.push({ name: 'addCartSuccess' })
+      } else {
+        window.alert(result.message)
+      }
+    }
   }
 }
 </script>

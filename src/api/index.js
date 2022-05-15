@@ -42,3 +42,11 @@ export const reqSearchInfo = (params = {}) => request({ url: '/list', method: 'p
  * @returns {Promise}
  */
 export const reqDetailInfo = (skuId) => request({ url: `/item/${skuId}`, method: 'get' })
+
+/**
+ * 添加商品到购物车
+ * @param skuId 商品 skuId
+ * @param skuNum 商品数量
+ * @returns {Promise}
+ */
+export const reqAddToCart = (skuId, skuNum) => request({ url: `/cart/addToCart/${skuId}/${skuNum}`, method: 'post' })

@@ -75,9 +75,9 @@
             </div>
             <div class="cartWrap">
               <div class="controls">
-                <input autocomplete="off" class="itxt">
-                <a href="javascript:" class="plus">+</a>
-                <a href="javascript:" class="mins">-</a>
+                <input v-model="addCartCount" autocomplete="off" class="itxt">
+                <a @click="changeAddCartCount" data-value="+" href="javascript:" class="plus">+</a>
+                <a @click="changeAddCartCount" data-value="-" href="javascript:" class="mins">-</a>
               </div>
               <div class="add">
                 <a href="javascript:">加入购物车</a>
@@ -340,7 +340,8 @@ export default {
   components: { ImageList, TheZoom },
   data() {
     return {
-      zoomImgIndex: 0
+      zoomImgIndex: 0,
+      addCartCount: 1
     }
   },
   computed: {
@@ -348,6 +349,11 @@ export default {
 
     zoomImgUrl() {
       return this.skuInfo.skuImageList ? this.skuInfo.skuImageList[this.zoomImgIndex].imgUrl : ''
+    }
+  },
+  watch: {
+    addCartCount(newValue) {
+      this.addCartCount = newValue.replace(/\D+/g, '')
     }
   },
   mounted() {
@@ -365,7 +371,18 @@ export default {
 
     changeCurrent(value) {
       this.zoomImgIndex = value
-    }
+    },
+
+    changeAddCartCount(event) {
+      const { value } = event.target.dataset
+      console.log(value)
+      if (value === '+') {
+        this.addCartCount += 1
+      }
+      if (value === '-' && this.addCartCount > 1) {
+        this.addCartCount -= 1
+      }
+    },
   }
 }
 </script>

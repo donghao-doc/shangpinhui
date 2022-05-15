@@ -11,6 +11,9 @@ export default {
         },
         skuInfo(state) {
             return state.detailInfo.skuInfo || {}
+        },
+        spuSaleAttrList(state) {
+            return state.detailInfo.spuSaleAttrList || []
         }
     },
     mutations: {

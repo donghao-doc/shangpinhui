@@ -353,7 +353,7 @@ export default {
   },
   watch: {
     addCartCount(newValue) {
-      this.addCartCount = newValue.replace(/\D+/g, '')
+      this.addCartCount = Number(String(newValue).replace(/\D+/g, ''))
     }
   },
   mounted() {

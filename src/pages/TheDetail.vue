@@ -349,10 +349,18 @@
 <script>
 import TheZoom from '@/components/Detail/TheZoom'
 import ImageList from '@/components/Detail/ImageList'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'TheDetail',
-  components: { ImageList, TheZoom }
+  components: { ImageList, TheZoom },
+  mounted() {
+    const { skuId } = this.$route.params
+    this.getDetailInfo(skuId)
+  },
+  methods: {
+    ...mapActions('detail', ['getDetailInfo'])
+  }
 }
 </script>
 

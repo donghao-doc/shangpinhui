@@ -35,3 +35,10 @@ export const reqFloorList = () => requestMock.get('/floor')
  * @returns {Promise}
  */
 export const reqSearchInfo = (params = {}) => request({ url: '/list', method: 'post', data: params })
+
+/**
+ * 请求商品详情信息
+ * @param skuId 商品 skuId
+ * @returns {Promise}
+ */
+export const reqDetailInfo = (skuId) => request({ url: `/item/${skuId}`, method: 'get' })

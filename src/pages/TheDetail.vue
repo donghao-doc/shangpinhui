@@ -16,9 +16,9 @@
         <!-- 左侧放大镜区域 -->
         <div class="previewWrap">
           <!--放大镜效果-->
-          <TheZoom/>
+          <TheZoom :imgUrl="zoomImgUrl"/>
           <!-- 小图列表 -->
-          <ImageList :skuImageList="skuInfo.skuImageList"/>
+          <ImageList @changeCurrent="changeCurrent" :skuImageList="skuInfo.skuImageList"/>
         </div>
         <!-- 右侧选择区域布局 -->
         <div class="InfoWrap">
@@ -338,8 +338,17 @@ import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'TheDetail',
   components: { ImageList, TheZoom },
+  data() {
+    return {
+      zoomImgIndex: 0
+    }
+  },
   computed: {
-    ...mapGetters('detail', ['categoryView', 'skuInfo', 'spuSaleAttrList'])
+    ...mapGetters('detail', ['categoryView', 'skuInfo', 'spuSaleAttrList']),
+
+    zoomImgUrl() {
+      return this.skuInfo.skuImageList ? this.skuInfo.skuImageList[this.zoomImgIndex].imgUrl : ''
+    }
   },
   mounted() {
     const { skuId } = this.$route.params
@@ -352,6 +361,10 @@ export default {
       array.forEach(item => item.isChecked = '0')
       const index = array.indexOf(value)
       array[index].isChecked = '1'
+    },
+
+    changeCurrent(value) {
+      this.zoomImgIndex = value
     }
   }
 }

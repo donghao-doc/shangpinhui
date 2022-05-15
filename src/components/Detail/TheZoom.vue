@@ -1,17 +1,41 @@
 <template>
   <div class="spec-preview">
-    <img src="@/assets/detail/s1.png" alt="s1">
-    <div class="event"></div>
+    <img :src="imgUrl" alt="img">
+    <div @mousemove="moveHandler" ref="eventBox" class="event"></div>
     <div class="big">
-      <img src="@/assets/detail/s1.png" alt="s1">
+      <img ref="big" :src="imgUrl" alt="img">
     </div>
-    <div class="mask"></div>
+    <div ref="mask" class="mask"></div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'TheZoom'
+  name: 'TheZoom',
+  props: {
+    imgUrl: {
+      type: String,
+      default(value) {
+        return value || require('@/assets/detail/s1.png')
+      }
+    }
+  },
+  methods: {
+    moveHandler(event) {
+      const { offsetX, offsetY } = event
+      const { mask, eventBox, big } = this.$refs
+      let x = offsetX - mask.offsetWidth / 2
+      let y = offsetY - mask.offsetHeight / 2
+      if (x <= 0) x = 0
+      if (y <= 0) y = 0
+      if (x >= eventBox.offsetWidth - mask.offsetWidth) x = eventBox.offsetWidth - mask.offsetWidth
+      if (y >= eventBox.offsetHeight - mask.offsetHeight) y = eventBox.offsetHeight - mask.offsetHeight
+      mask.style.left = x + 'px'
+      mask.style.top = y + 'px'
+      big.style.left = -x * 2 + 'px'
+      big.style.top = -y * 2 + 'px'
+    }
+  }
 }
 </script>
 

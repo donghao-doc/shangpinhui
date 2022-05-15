@@ -3,9 +3,16 @@ import { reqDetailInfo } from '@/api'
 export default {
     namespaced: true,
     state: {
-        detailInfo: null
+        detailInfo: {}
     },
-    getters: {},
+    getters: {
+        categoryView(state) {
+            return state.detailInfo.categoryView || {}
+        },
+        skuInfo(state) {
+            return state.detailInfo.skuInfo || {}
+        }
+    },
     mutations: {
         SETDETAILINFO(state, value) {
             state.detailInfo = value

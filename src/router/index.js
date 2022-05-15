@@ -5,6 +5,7 @@ import TheSearch from '@/pages/TheSearch'
 import TheLogin from '@/pages/TheLogin'
 import TheRegister from '@/pages/TheRegister'
 import TheDetail from '@/pages/TheDetail'
+import AddCartSuccess from '@/pages/AddCartSuccess'
 
 const originPush = VueRouter.prototype.push
 const originReplace = VueRouter.prototype.replace
@@ -55,6 +56,12 @@ export default new VueRouter({
             name: 'detail',
             path: '/detail/:skuId',
             component: TheDetail,
+            meta: { showFooter: true }
+        },
+        {
+            name: 'addCartSuccess',
+            path: '/addCartSuccess',
+            component: AddCartSuccess,
             meta: { showFooter: true }
         },
         {

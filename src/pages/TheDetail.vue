@@ -64,8 +64,13 @@
             <div class="chooseArea">
               <div class="choosed"></div>
               <dl v-for="spuSaleAttr in spuSaleAttrList" :key="spuSaleAttr.id">
-                <dt class="title">选择{{spuSaleAttr.saleAttrName}}</dt>
-                <dd v-for="value in spuSaleAttr.spuSaleAttrValueList" :key="value.id" :class="{active: value.isChecked === '1'}">{{value.saleAttrValueName}}</dd>
+                <dt class="title">选择{{ spuSaleAttr.saleAttrName }}</dt>
+                <dd
+                    @click="changeActive(value, spuSaleAttr.spuSaleAttrValueList)"
+                    v-for="value in spuSaleAttr.spuSaleAttrValueList" :key="value.id"
+                    :class="{active: value.isChecked === '1'}">
+                  {{ value.saleAttrValueName }}
+                </dd>
               </dl>
             </div>
             <div class="cartWrap">
@@ -341,7 +346,13 @@ export default {
     this.getDetailInfo(skuId)
   },
   methods: {
-    ...mapActions('detail', ['getDetailInfo'])
+    ...mapActions('detail', ['getDetailInfo']),
+
+    changeActive(value, array) {
+      array.forEach(item => item.isChecked = '0')
+      const index = array.indexOf(value)
+      array[index].isChecked = '1'
+    }
   }
 }
 </script>

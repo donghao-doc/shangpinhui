@@ -5,7 +5,11 @@ export default {
     state: {
         shopCartList: []
     },
-    getters: {},
+    getters: {
+        cartList(state) {
+            return state.shopCartList[0] || {}
+        }
+    },
     mutations: {
         SETSHOPCARTLIST(state, value) {
             state.shopCartList = value

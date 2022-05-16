@@ -13,7 +13,8 @@
       <div class="cart-body">
         <ul v-for="cartInfo in cartInfoList" :key="cartInfo.id" class="cart-list">
           <li class="cart-list-con1">
-            <input @change="changeCheckState(cartInfo.skuId, $event.target.checked)" :checked="cartInfo.isChecked === 1" type="checkbox" name="chk_list">
+            <input @change="changeCheckState(cartInfo.skuId, $event.target.checked)" :checked="cartInfo.isChecked === 1"
+                   type="checkbox" name="chk_list">
           </li>
           <li class="cart-list-con2">
             <img :src="cartInfo.imgUrl" alt="goods">
@@ -42,7 +43,7 @@
     </div>
     <div class="cart-tool">
       <div class="select-all">
-        <input :checked="isAllCheck" class="chooseAll" type="checkbox">
+        <input @change="changeAllCheck" :checked="isAllCheck" class="chooseAll" type="checkbox">
         <span>全选</span>
       </div>
       <div class="option">
@@ -97,7 +98,7 @@ export default {
     this.getShopCartList()
   },
   methods: {
-    ...mapActions('shopCart', ['getShopCartList', 'deleteCart', 'checkCart', 'deleteCheckedGoods']),
+    ...mapActions('shopCart', ['getShopCartList', 'deleteCart', 'checkCart', 'deleteCheckedGoods', 'changeAllCheckState']),
     ...mapActions('detail', ['addToCart']),
 
     inputHandler(event) {
@@ -141,8 +142,22 @@ export default {
     },
 
     async deleteChecked() {
-      const promise = await this.deleteCheckedGoods()
       try {
+        const promise = await this.deleteCheckedGoods()
+        promise.then(() => {
+          this.getShopCartList()
+        }, reason => {
+          window.alert(reason)
+        })
+      } catch (err) {
+        window.alert(err.message())
+      }
+    },
+
+    async changeAllCheck(event) {
+      let checked = event.target.checked ? '1' : '0'
+      try {
+        const promise = await this.changeAllCheckState(checked)
         promise.then(() => {
           this.getShopCartList()
         }, reason => {

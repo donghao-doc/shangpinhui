@@ -54,6 +54,14 @@ export default {
                 }
             })
             return Promise.all(promiseAll)
+        },
+        changeAllCheckState({ dispatch, state }, checked) {
+            let promiseAll = []
+            state.shopCartList[0].cartInfoList.forEach(item => {
+                const promise = dispatch('checkCart', { skuId: item.skuId, isChecked: checked })
+                promiseAll.push(promise)
+            })
+            return Promise.all(promiseAll)
         }
     }
 }

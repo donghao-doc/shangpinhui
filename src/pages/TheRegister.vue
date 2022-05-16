@@ -8,32 +8,32 @@
       </h3>
       <div class="content">
         <label>手机号:</label>
-        <input type="text" placeholder="请输入你的手机号">
+        <input v-model="tel" type="text" placeholder="请输入你的手机号">
         <span class="error-msg">错误提示信息</span>
       </div>
       <div class="content">
         <label>验证码:</label>
-        <input type="text" placeholder="请输入验证码">
-        <button>获取验证码</button>
+        <input v-model="code" type="text" placeholder="请输入验证码">
+        <button @click="getCode">获取验证码</button>
         <span class="error-msg">错误提示信息</span>
       </div>
       <div class="content">
         <label>登录密码:</label>
-        <input type="text" placeholder="请输入你的登录密码">
+        <input v-model="password" type="password" placeholder="请输入你的登录密码">
         <span class="error-msg">错误提示信息</span>
       </div>
       <div class="content">
         <label>确认密码:</label>
-        <input type="text" placeholder="请输入确认密码">
+        <input v-model="confirmPassword" type="password" placeholder="请输入确认密码">
         <span class="error-msg">错误提示信息</span>
       </div>
       <div class="controls">
-        <input name="m1" type="checkbox">
+        <input v-model="agree" name="m1" type="checkbox">
         <span>同意协议并注册《尚品汇用户协议》</span>
         <span class="error-msg">错误提示信息</span>
       </div>
       <div class="btn">
-        <button>完成注册</button>
+        <button @click="register">完成注册</button>
       </div>
     </div>
 
@@ -57,8 +57,46 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
-  name: 'TheRegister'
+  name: 'TheRegister',
+  data() {
+    return {
+      tel: '',
+      code: '',
+      password: '',
+      confirmPassword: '',
+      agree: false
+    }
+  },
+  methods: {
+    ...mapActions('user', ['sendCode', 'userRegister']),
+
+    async getCode() {
+      if (!this.tel) return
+      const result = await this.sendCode(this.tel)
+      if (result.code === 200) {
+        this.code = result.data
+      } else {
+        window.alert(result.message)
+      }
+    },
+
+    async register() {
+      const { tel: phone, password, confirmPassword, code, agree } = this
+      if (!phone) return
+      if (!code) return
+      if (password !== confirmPassword) return
+      if (!agree) return
+      const result = await this.userRegister({ phone, password, code })
+      if (result.code === 200) {
+        this.$router.push({ name: 'login' })
+      } else {
+        window.alert(result.message)
+      }
+    }
+  }
 }
 </script>
 

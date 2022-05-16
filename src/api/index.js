@@ -71,3 +71,17 @@ export const reqDeleteCart = (skuId) => request({ url: `/cart/deleteCart/${skuId
  * @returns {*}
  */
 export const reqCheckCart = (skuId, isChecked) => request({ url: `/cart/checkCart/${skuId}/${isChecked}`, method: 'get' })
+
+/**
+ * 获取验证码
+ * @param tel 用户手机号
+ * @returns {Promise}
+ */
+export const reqSendCode = (tel) => request({ url: `/user/passport/sendCode/${tel}`, method: 'get' })
+
+/**
+ * 注册用户
+ * @param data 用户信息
+ * @returns {Promise}
+ */
+export const reqRegister = (data) => request({ url: '/user/passport/register', method: 'post', data })

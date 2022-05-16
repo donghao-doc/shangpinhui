@@ -1,9 +1,11 @@
 import { reqDetailInfo, reqAddToCart } from '@/api'
+import { getUUID } from '@/utils/uuid_token'
 
 export default {
     namespaced: true,
     state: {
-        detailInfo: {}
+        detailInfo: {},
+        uuid_token: getUUID()
     },
     getters: {
         categoryView(state) {

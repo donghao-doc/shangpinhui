@@ -44,6 +44,16 @@ export default {
             } catch (err) {
                 console.log('checkCart err:', err)
             }
+        },
+        deleteCheckedGoods({ dispatch, getters }) {
+            let promiseAll = []
+            getters.cartList.cartInfoList.forEach(item => {
+                if (item.isChecked === 1) {
+                    const promise = dispatch('deleteCart', item.skuId)
+                    promiseAll.push(promise)
+                }
+            })
+            return Promise.all(promiseAll)
         }
     }
 }

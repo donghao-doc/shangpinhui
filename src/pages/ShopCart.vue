@@ -46,7 +46,7 @@
         <span>全选</span>
       </div>
       <div class="option">
-        <a href="#">删除选中的商品</a>
+        <a @click="deleteChecked">删除选中的商品</a>
         <a href="#">移到我的关注</a>
         <a href="#">清除下柜商品</a>
       </div>
@@ -97,7 +97,7 @@ export default {
     this.getShopCartList()
   },
   methods: {
-    ...mapActions('shopCart', ['getShopCartList', 'deleteCart', 'checkCart']),
+    ...mapActions('shopCart', ['getShopCartList', 'deleteCart', 'checkCart', 'deleteCheckedGoods']),
     ...mapActions('detail', ['addToCart']),
 
     inputHandler(event) {
@@ -137,6 +137,19 @@ export default {
         this.getShopCartList()
       } else {
         window.alert(result.message)
+      }
+    },
+
+    async deleteChecked() {
+      const promise = await this.deleteCheckedGoods()
+      try {
+        promise.then(() => {
+          this.getShopCartList()
+        }, reason => {
+          window.alert(reason)
+        })
+      } catch (err) {
+        window.alert(err.message())
       }
     }
   }

@@ -14,7 +14,7 @@
       <div class="content">
         <label>验证码:</label>
         <input type="text" placeholder="请输入验证码">
-        <img ref="code" src="http://gmall-h5-api.atguigu.cn/user/passport/code" alt="code">
+        <button>获取验证码</button>
         <span class="error-msg">错误提示信息</span>
       </div>
       <div class="content">
@@ -113,6 +113,14 @@ export default {
         margin-left: 5px;
         outline: none;
         border: 1px solid #999;
+      }
+
+      button {
+        width: 100px;
+        height: 38px;
+        position: relative;
+        top: -1px;
+        left: 8px;
       }
 
       img {

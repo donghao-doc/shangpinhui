@@ -86,6 +86,7 @@ export default {
       return sum
     },
     isAllCheck() {
+      if (!this.cartInfoList.length) return false
       return this.cartInfoList.every(item => item.isChecked === 1)
     }
   },

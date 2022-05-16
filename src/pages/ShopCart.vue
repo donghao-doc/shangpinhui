@@ -117,8 +117,16 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
-  name: 'shopCart'
+  name: 'shopCart',
+  mounted() {
+    this.getShopCartList()
+  },
+  methods: {
+    ...mapActions('shopCart', ['getShopCartList'])
+  }
 }
 </script>
 

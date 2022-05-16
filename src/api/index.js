@@ -50,3 +50,9 @@ export const reqDetailInfo = (skuId) => request({ url: `/item/${skuId}`, method:
  * @returns {Promise}
  */
 export const reqAddToCart = (skuId, skuNum) => request({ url: `/cart/addToCart/${skuId}/${skuNum}`, method: 'post' })
+
+/**
+ * 请求购物车列表
+ * @returns {Promise}
+ */
+export const reqShopCartList = () => request({ url: '/cart/cartList', method: 'get' })

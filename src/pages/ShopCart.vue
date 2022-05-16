@@ -23,9 +23,10 @@
             <span class="price">{{ cartInfo.skuPrice }}.00</span>
           </li>
           <li class="cart-list-con5">
-            <a href="javascript:void(0)" class="mins">-</a>
-            <input :value="cartInfo.skuNum" autocomplete="off" type="text" min="1" class="itxt">
-            <a href="javascript:void(0)" class="plus">+</a>
+            <a @click="changeSkuNum('-', -1, cartInfo)" href="javascript:void(0)" class="mins">-</a>
+            <input @input="inputHandler" @change="changeSkuNum('change', $event.target.value*1, cartInfo)" :value="cartInfo.skuNum"
+                   autocomplete="off" type="text" min="1" class="itxt">
+            <a @click="changeSkuNum('+', 1, cartInfo)" href="javascript:void(0)" class="plus">+</a>
           </li>
           <li class="cart-list-con6">
             <span class="sum">{{ cartInfo.skuPrice * cartInfo.skuNum }}</span>
@@ -94,7 +95,30 @@ export default {
     this.getShopCartList()
   },
   methods: {
-    ...mapActions('shopCart', ['getShopCartList'])
+    ...mapActions('shopCart', ['getShopCartList']),
+    ...mapActions('detail', ['addToCart']),
+
+    inputHandler(event) {
+      event.target.value = event.target.value.replace(/\D+/g, '')
+    },
+
+    async changeSkuNum(type, disNum, cartInfo) {
+      switch (type) {
+        case '+':
+          disNum = 1
+          break
+        case '-':
+          disNum = cartInfo.skuNum > 1 ? -1 : 0
+          break
+        case 'change':
+          disNum = disNum <= 0 ? 0 : disNum - cartInfo.skuNum
+          break
+      }
+      const result = await this.addToCart(cartInfo.skuId, disNum)
+      if (result.code === 200) {
+        this.getShopCartList()
+      }
+    }
   }
 }
 </script>

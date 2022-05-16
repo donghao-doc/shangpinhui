@@ -63,3 +63,11 @@ export const reqShopCartList = () => request({ url: '/cart/cartList', method: 'g
  * @returns {*}
  */
 export const reqDeleteCart = (skuId) => request({ url: `/cart/deleteCart/${skuId}`, method: 'delete' })
+
+/**
+ * 修改商品选中状态
+ * @param skuId 商品 skuId
+ * @param isChecked 商品选中状态
+ * @returns {*}
+ */
+export const reqCheckCart = (skuId, isChecked) => request({ url: `/cart/checkCart/${skuId}/${isChecked}`, method: 'get' })

@@ -13,7 +13,7 @@
       <div class="cart-body">
         <ul v-for="cartInfo in cartInfoList" :key="cartInfo.id" class="cart-list">
           <li class="cart-list-con1">
-            <input :checked="cartInfo.isChecked === 1" type="checkbox" name="chk_list">
+            <input @change="changeCheckState(cartInfo.skuId, $event.target.checked)" :checked="cartInfo.isChecked === 1" type="checkbox" name="chk_list">
           </li>
           <li class="cart-list-con2">
             <img :src="cartInfo.imgUrl" alt="goods">
@@ -97,7 +97,7 @@ export default {
     this.getShopCartList()
   },
   methods: {
-    ...mapActions('shopCart', ['getShopCartList', 'deleteCart']),
+    ...mapActions('shopCart', ['getShopCartList', 'deleteCart', 'checkCart']),
     ...mapActions('detail', ['addToCart']),
 
     inputHandler(event) {
@@ -120,10 +120,19 @@ export default {
       if (result.code === 200) {
         this.getShopCartList()
       }
-    }, 1000),
+    }, 500),
 
     async deleteGoods(skuId) {
       const result = await this.deleteCart(skuId)
+      if (result.code === 200) {
+        this.getShopCartList()
+      } else {
+        window.alert(result.message)
+      }
+    },
+
+    async changeCheckState(skuId, isChecked) {
+      const result = await this.checkCart({ skuId, isChecked: Number(isChecked) })
       if (result.code === 200) {
         this.getShopCartList()
       } else {

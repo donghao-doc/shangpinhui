@@ -1,4 +1,4 @@
-import { reqDeleteCart, reqShopCartList } from '@/api'
+import { reqCheckCart, reqDeleteCart, reqShopCartList } from '@/api'
 
 export default {
     namespaced: true,
@@ -34,6 +34,15 @@ export default {
                 return result
             } catch (err) {
                 console.log('deleteCart err:', err)
+            }
+        },
+        async checkCart(context, { skuId, isChecked }) {
+            try {
+                const result = await reqCheckCart(skuId, isChecked)
+                console.log('checkCart:', result)
+                return result
+            } catch (err) {
+                console.log('checkCart err:', err)
             }
         }
     }

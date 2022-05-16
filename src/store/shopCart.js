@@ -1,4 +1,4 @@
-import { reqShopCartList } from '@/api'
+import { reqDeleteCart, reqShopCartList } from '@/api'
 
 export default {
     namespaced: true,
@@ -25,6 +25,15 @@ export default {
                 }
             } catch (err) {
                 console.log('getShopCartList err:', err)
+            }
+        },
+        async deleteCart(context, skuId) {
+            try {
+                const result = await reqDeleteCart(skuId)
+                console.log('deleteCart:', result)
+                return result
+            } catch (err) {
+                console.log('deleteCart err:', err)
             }
         }
     }

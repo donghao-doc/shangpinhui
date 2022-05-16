@@ -24,7 +24,8 @@
           </li>
           <li class="cart-list-con5">
             <a @click="changeSkuNum('-', -1, cartInfo)" href="javascript:void(0)" class="mins">-</a>
-            <input @input="inputHandler" @change="changeSkuNum('change', $event.target.value*1, cartInfo)" :value="cartInfo.skuNum"
+            <input @input="inputHandler" @change="changeSkuNum('change', $event.target.value*1, cartInfo)"
+                   :value="cartInfo.skuNum"
                    autocomplete="off" type="text" min="1" class="itxt">
             <a @click="changeSkuNum('+', 1, cartInfo)" href="javascript:void(0)" class="plus">+</a>
           </li>
@@ -32,7 +33,7 @@
             <span class="sum">{{ cartInfo.skuPrice * cartInfo.skuNum }}</span>
           </li>
           <li class="cart-list-con7">
-            <a href="#" class="sindelet">删除</a>
+            <a @click="deleteGoods(cartInfo.skuId)" class="sindelet">删除</a>
             <br>
             <a href="#">移到收藏</a>
           </li>
@@ -67,6 +68,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import { throttle } from 'lodash'
 
 export default {
   name: 'shopCart',
@@ -95,14 +97,14 @@ export default {
     this.getShopCartList()
   },
   methods: {
-    ...mapActions('shopCart', ['getShopCartList']),
+    ...mapActions('shopCart', ['getShopCartList', 'deleteCart']),
     ...mapActions('detail', ['addToCart']),
 
     inputHandler(event) {
       event.target.value = event.target.value.replace(/\D+/g, '')
     },
 
-    async changeSkuNum(type, disNum, cartInfo) {
+    changeSkuNum: throttle(async function (type, disNum, cartInfo) {
       switch (type) {
         case '+':
           disNum = 1
@@ -117,6 +119,15 @@ export default {
       const result = await this.addToCart(cartInfo.skuId, disNum)
       if (result.code === 200) {
         this.getShopCartList()
+      }
+    }, 1000),
+
+    async deleteGoods(skuId) {
+      const result = await this.deleteCart(skuId)
+      if (result.code === 200) {
+        this.getShopCartList()
+      } else {
+        window.alert(result.message)
       }
     }
   }

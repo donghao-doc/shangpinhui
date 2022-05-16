@@ -56,3 +56,10 @@ export const reqAddToCart = (skuId, skuNum) => request({ url: `/cart/addToCart/$
  * @returns {Promise}
  */
 export const reqShopCartList = () => request({ url: '/cart/cartList', method: 'get' })
+
+/**
+ * 删除商品
+ * @param skuId 商品 skuId
+ * @returns {*}
+ */
+export const reqDeleteCart = (skuId) => request({ url: `/cart/deleteCart/${skuId}`, method: 'delete' })

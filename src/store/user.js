@@ -1,9 +1,10 @@
 import { reqLogin, reqRegister, reqSendCode, reqUserInfo } from '@/api'
+import { getToken, setToken } from '@/utils/token'
 
 export default {
     namespaced: true,
     state: {
-        token: '',
+        token: getToken(),
         userInfo: {}
     },
     getters: {},
@@ -40,6 +41,7 @@ export default {
                 // console.log('userLogin:', result)
                 if (result.code === 200) {
                     context.commit('SETUSERTOKEN', result.data.token)
+                    setToken(result.data.token)
                 }
                 return result
             } catch (err) {

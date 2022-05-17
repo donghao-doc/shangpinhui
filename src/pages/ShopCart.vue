@@ -120,6 +120,9 @@ export default {
       const result = await this.addToCart(cartInfo.skuId, disNum)
       if (result.code === 200) {
         this.getShopCartList()
+      } else {
+        this.getShopCartList()
+        window.alert(result.message)
       }
     }, 500),
 
@@ -141,9 +144,9 @@ export default {
       }
     },
 
-    async deleteChecked() {
+    deleteChecked() {
       try {
-        const promise = await this.deleteCheckedGoods()
+        const promise = this.deleteCheckedGoods()
         promise.then(() => {
           this.getShopCartList()
         }, reason => {
@@ -154,10 +157,10 @@ export default {
       }
     },
 
-    async changeAllCheck(event) {
+    changeAllCheck(event) {
       let checked = event.target.checked ? '1' : '0'
       try {
-        const promise = await this.changeAllCheckState(checked)
+        const promise = this.changeAllCheckState(checked)
         promise.then(() => {
           this.getShopCartList()
         }, reason => {

@@ -8,6 +8,8 @@ import TheDetail from '@/pages/TheDetail'
 import AddCartSuccess from '@/pages/AddCartSuccess'
 import ShopCart from '@/pages/ShopCart'
 
+import store from '@/store'
+
 const originPush = VueRouter.prototype.push
 const originReplace = VueRouter.prototype.replace
 VueRouter.prototype.push = function (location, resolve, reject) {
@@ -27,7 +29,7 @@ VueRouter.prototype.replace = function (location, resolve, reject) {
 
 Vue.use(VueRouter)
 
-export default new VueRouter({
+const router = new VueRouter({
     routes: [
         {
             name: 'home',
@@ -81,3 +83,33 @@ export default new VueRouter({
         return { y: 0 }
     }
 })
+
+router.beforeEach(async (to, from, next) => {
+    const { token, userInfo } = store.state.user
+    if (token) {
+        if (to.name === 'login' || to.name === 'register') {
+            next(from.path)
+        } else {
+            if (userInfo.name) {
+                next()
+            } else {
+                const result = await store.dispatch('user/getUserInfo')
+                if (result.code === 200) {
+                    next()
+                } else {
+                    // token 失效，获取不到用户信息，需要退出重新登录
+                    const result = store.dispatch('user/userLogout')
+                    if (result.code === 200) {
+                        next('/login')
+                    } else {
+                        next(from.path)
+                    }
+                }
+            }
+        }
+    } else {
+        next()
+    }
+})
+
+export default router

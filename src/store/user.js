@@ -60,6 +60,7 @@ export default {
                 if (result.code === 200) {
                     context.commit('SETUSERINFO', result.data)
                 }
+                return result
             } catch (err) {
                 console.log('getUserInfo err:', err)
             }

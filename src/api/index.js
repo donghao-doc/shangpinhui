@@ -92,3 +92,9 @@ export const reqRegister = (data) => request({ url: '/user/passport/register', m
  * @returns {Promise}
  */
 export const reqLogin = (data) => request({ url: '/user/passport/login', method: 'post', data })
+
+/**
+ * 请求用户信息
+ * @returns {Promise}
+ */
+export const reqUserInfo = () => request({ url: '/user/passport/auth/getUserInfo', method: 'get' })

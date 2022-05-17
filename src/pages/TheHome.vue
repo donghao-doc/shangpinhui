@@ -17,7 +17,7 @@ import TheRank from '@/components/Home/GoodsRank'
 import GuessLike from '@/components/Home/GuessLike'
 import TheFloor from '@/components/Home/TheFloor'
 import TheBrand from '@/components/Home/TheBrand'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'TheHome',
@@ -25,6 +25,12 @@ export default {
   computed: {
     ...mapGetters('home', ['floorList'])
   },
+  mounted() {
+    this.getUserInfo()
+  },
+  methods: {
+    ...mapActions('user', ['getUserInfo']),
+  }
 }
 </script>
 

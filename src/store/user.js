@@ -1,14 +1,18 @@
-import { reqLogin, reqRegister, reqSendCode } from '@/api'
+import { reqLogin, reqRegister, reqSendCode, reqUserInfo } from '@/api'
 
 export default {
     namespaced: true,
     state: {
-        token: ''
+        token: '',
+        userInfo: {}
     },
     getters: {},
     mutations: {
         SETUSERTOKEN(state, value) {
             state.token = value
+        },
+        SETUSERINFO(state, value) {
+            state.userInfo = value
         }
     },
     actions: {
@@ -40,6 +44,17 @@ export default {
                 return result
             } catch (err) {
                 console.log('userLogin err:', err)
+            }
+        },
+        async getUserInfo(context) {
+            try {
+                const result = await reqUserInfo()
+                console.log('getUserInfo:', result)
+                if (result.code === 200) {
+                    context.commit('SETUSERINFO', result.data)
+                }
+            } catch (err) {
+                console.log('getUserInfo err:', err)
             }
         }
     }

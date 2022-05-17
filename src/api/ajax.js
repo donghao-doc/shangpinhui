@@ -13,9 +13,10 @@ const requests = axios.create({
  */
 requests.interceptors.request.use(config => {
     NProgress.start();
-    console.log('store:', store)
     const { uuid_token } = store.state.detail
-    config.headers.userTempId = uuid_token
+    const { token } = store.state.user
+    if (uuid_token) config.headers.userTempId = uuid_token
+    if (token) config.headers.token = token
     return config
 })
 

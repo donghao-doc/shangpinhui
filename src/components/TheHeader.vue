@@ -6,10 +6,14 @@
       <div class="container">
         <div class="loginList">
           <p>尚品汇欢迎您！</p>
-          <p>
+          <p v-if="!userName">
             <span>请</span>
             <router-link :to="{ name: 'login' }">登录</router-link>
             <router-link :to="{ name: 'register' }" class="register">免费注册</router-link>
+          </p>
+          <p v-else>
+            <span>{{ userName }}</span>
+            <a href="javascript:" class="register">退出登录</a>
           </p>
         </div>
         <div class="typeList">
@@ -44,11 +48,21 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'TheHeader',
   data() {
     return {
       keyword: ''
+    }
+  },
+  computed: {
+    ...mapState('user', ['userInfo']),
+
+    userName() {
+      const { loginName, nickName, name } = this.userInfo
+      return name || nickName || loginName
     }
   },
   mounted() {

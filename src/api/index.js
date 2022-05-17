@@ -104,3 +104,15 @@ export const reqUserInfo = () => request({ url: '/user/passport/auth/getUserInfo
  * @returns {Promise}
  */
 export const reqLogOut = () => request({ url: '/user/passport/logout', method: 'get' })
+
+/**
+ * 请求用户地址信息
+ * @returns {Promise}
+ */
+export const reqAddressList = () => request({ url: '/user/userAddress/auth/findUserAddressList', method: 'get' })
+
+/**
+ * 获取商品清单信息
+ * @returns {Promise}
+ */
+export const reqOrderInfo = () => request({ url: '/order/auth/trade', method: 'get' })

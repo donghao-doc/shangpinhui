@@ -118,8 +118,17 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
-  name: 'TheTrade'
+  name: 'TheTrade',
+  mounted() {
+    this.getAddressList()
+    this.getOrderInfo()
+  },
+  methods: {
+    ...mapActions('trade', ['getAddressList', 'getOrderInfo'])
+  }
 }
 </script>
 

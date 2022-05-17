@@ -85,3 +85,10 @@ export const reqSendCode = (tel) => request({ url: `/user/passport/sendCode/${te
  * @returns {Promise}
  */
 export const reqRegister = (data) => request({ url: '/user/passport/register', method: 'post', data })
+
+/**
+ * 用户登录
+ * @param data 用户信息
+ * @returns {Promise}
+ */
+export const reqLogin = (data) => request({ url: '/user/passport/login', method: 'post', data })

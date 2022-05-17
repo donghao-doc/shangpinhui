@@ -13,7 +13,7 @@
           </p>
           <p v-else>
             <span>{{ userName }}</span>
-            <a href="javascript:" class="register">退出登录</a>
+            <a @click="logOut" href="javascript:" class="register">退出登录</a>
           </p>
         </div>
         <div class="typeList">
@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'TheHeader',
@@ -69,6 +69,8 @@ export default {
     this.$bus.$on('updateKeyword', value => this.keyword = value)
   },
   methods: {
+    ...mapActions('user', ['userLogout']),
+
     goSearch() {
       const location = {
         name: 'search',
@@ -76,6 +78,13 @@ export default {
       }
       if (this.$route.query) location.query = this.$route.query
       this.$router.push(location)
+    },
+
+    async logOut() {
+      const result = await this.userLogout()
+      if (result.code === 200) {
+        this.$router.push({ name: 'home' })
+      }
     }
   }
 }

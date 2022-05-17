@@ -1,5 +1,5 @@
-import { reqLogin, reqRegister, reqSendCode, reqUserInfo } from '@/api'
-import { getToken, setToken } from '@/utils/token'
+import { reqLogin, reqLogOut, reqRegister, reqSendCode, reqUserInfo } from '@/api'
+import { getToken, setToken, removeToken } from '@/utils/token'
 
 export default {
     namespaced: true,
@@ -14,6 +14,11 @@ export default {
         },
         SETUSERINFO(state, value) {
             state.userInfo = value
+        },
+        CLEAR(state) {
+            state.token = ''
+            state.userInfo = {}
+            removeToken()
         }
     },
     actions: {
@@ -57,6 +62,18 @@ export default {
                 }
             } catch (err) {
                 console.log('getUserInfo err:', err)
+            }
+        },
+        async userLogout(context) {
+            try {
+                const result = await reqLogOut()
+                console.log('userLogout:', result)
+                if (result.code === 200) {
+                    context.commit('CLEAR')
+                }
+                return result
+            } catch (err) {
+                console.log('userLogout err:', err)
             }
         }
     }

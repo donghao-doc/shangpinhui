@@ -98,3 +98,9 @@ export const reqLogin = (data) => request({ url: '/user/passport/login', method:
  * @returns {Promise}
  */
 export const reqUserInfo = () => request({ url: '/user/passport/auth/getUserInfo', method: 'get' })
+
+/**
+ * 退出登录
+ * @returns {Promise}
+ */
+export const reqLogOut = () => request({ url: '/user/passport/logout', method: 'get' })

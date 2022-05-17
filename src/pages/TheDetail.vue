@@ -385,7 +385,6 @@ export default {
 
     async addCart() {
       const result = await this.addToCart(this.$route.params.skuId, this.addCartCount)
-      console.log('111111111:', result)
       if (result.code === 200 || result.code === 201) {
         window.sessionStorage.setItem('skuInfo', JSON.stringify(this.skuInfo))
         this.$router.push({ name: 'addCartSuccess', query: { skuNum: this.addCartCount } })

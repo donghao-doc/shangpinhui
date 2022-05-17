@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '@/store'
+
 import TheHome from '@/pages/TheHome'
 import TheSearch from '@/pages/TheSearch'
 import TheLogin from '@/pages/TheLogin'
@@ -7,8 +9,7 @@ import TheRegister from '@/pages/TheRegister'
 import TheDetail from '@/pages/TheDetail'
 import AddCartSuccess from '@/pages/AddCartSuccess'
 import ShopCart from '@/pages/ShopCart'
-
-import store from '@/store'
+import TheTrade from '@/pages/TheTrade'
 
 const originPush = VueRouter.prototype.push
 const originReplace = VueRouter.prototype.replace
@@ -71,6 +72,12 @@ const router = new VueRouter({
             name: 'shopCart',
             path: '/shopCart',
             component: ShopCart,
+            meta: { showFooter: true }
+        },
+        {
+            name: 'trade',
+            path: '/trade',
+            component: TheTrade,
             meta: { showFooter: true }
         },
         {

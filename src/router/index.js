@@ -10,6 +10,7 @@ import TheDetail from '@/pages/TheDetail'
 import AddCartSuccess from '@/pages/AddCartSuccess'
 import ShopCart from '@/pages/ShopCart'
 import TheTrade from '@/pages/TheTrade'
+import ThePay from '@/pages/ThePay'
 
 const originPush = VueRouter.prototype.push
 const originReplace = VueRouter.prototype.replace
@@ -78,6 +79,12 @@ const router = new VueRouter({
             name: 'trade',
             path: '/trade',
             component: TheTrade,
+            meta: { showFooter: true }
+        },
+        {
+            name: 'pay',
+            path: '/pay',
+            component: ThePay,
             meta: { showFooter: true }
         },
         {

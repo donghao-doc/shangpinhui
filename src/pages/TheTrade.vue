@@ -4,10 +4,10 @@
     <div class="content">
       <h5 class="receive">收件人信息</h5>
       <div v-for="address in addressList" :key="address.id" class="address clearFix">
-        <span :class="{selected: address.isDefault === '1'}" class="username">{{address.consignee}}</span>
+        <span :class="{selected: address.isDefault === '1'}" class="username">{{ address.consignee }}</span>
         <p @click="changeDefaultAddress(address)">
-          <span class="s1">{{address.fullAddress}}</span>
-          <span class="s2">{{address.phoneNum}}</span>
+          <span class="s1">{{ address.fullAddress }}</span>
+          <span class="s2">{{ address.phoneNum }}</span>
           <span v-if="address.isDefault === '1'" class="s3">默认地址</span>
         </p>
       </div>
@@ -33,13 +33,13 @@
             <img :src="order.imgUrl" alt="goods" style="width: 100px">
           </li>
           <li>
-            <p>{{order.skuName}}</p>
+            <p>{{ order.skuName }}</p>
             <h4>7天无理由退货</h4>
           </li>
           <li>
-            <h3>￥{{order.orderPrice}}.00</h3>
+            <h3>￥{{ order.orderPrice }}.00</h3>
           </li>
-          <li>X{{order.skuNum}}</li>
+          <li>X{{ order.skuNum }}</li>
           <li>有货</li>
         </ul>
       </div>
@@ -57,8 +57,8 @@
     <div class="money clearFix">
       <ul>
         <li>
-          <b><i>{{orderInfo.totalNum}}</i>件商品，总商品金额</b>
-          <span>¥{{orderInfo.totalAmount}}.00</span>
+          <b><i>{{ orderInfo.totalNum }}</i>件商品，总商品金额</b>
+          <span>¥{{ orderInfo.totalAmount }}.00</span>
         </li>
         <li>
           <b>返现：</b>
@@ -71,16 +71,16 @@
       </ul>
     </div>
     <div class="trade">
-      <div class="price">应付金额: <span>¥{{orderInfo.totalAmount}}.00</span></div>
+      <div class="price">应付金额: <span>¥{{ orderInfo.totalAmount }}.00</span></div>
       <div v-if="userDefaultAddress" class="receiveInfo">
         寄送至:
-        <span>{{userDefaultAddress.fullAddress}}</span>
-        收货人：<span>{{userDefaultAddress.consignee}}</span>
-        <span>{{userDefaultAddress.phoneNum}}</span>
+        <span>{{ userDefaultAddress.fullAddress }}</span>
+        收货人：<span>{{ userDefaultAddress.consignee }}</span>
+        <span>{{ userDefaultAddress.phoneNum }}</span>
       </div>
     </div>
     <div class="sub clearFix">
-      <router-link class="subBtn" to="/pay">提交订单</router-link>
+      <a @click="submitOrder" class="subBtn">提交订单</a>
     </div>
   </div>
 </template>
@@ -112,6 +112,31 @@ export default {
     changeDefaultAddress(address) {
       this.addressList.forEach(item => item.isDefault = '0')
       address.isDefault = '1'
+    },
+
+    async submitOrder() {
+      const { tradeNo, detailArrayList } = this.orderInfo
+      const { consignee, phoneNum, fullAddress } = this.userDefaultAddress
+      const data = {
+        consignee,
+        consigneeTel: phoneNum,
+        deliveryAddress: fullAddress,
+        paymentWay: 'ONLINE',
+        orderComment: this.leaveWord,
+        orderDetailList: detailArrayList
+      }
+      try {
+        const result = await this.$API.reqSubmitOrder(tradeNo, data)
+        console.log('submitOrder:', result)
+        if (result.code === 200) {
+          this.$router.push('/pay')
+        } else {
+          window.alert(result.message)
+        }
+      } catch (err) {
+        console.log('submitOrder err:', err)
+      }
+
     }
   }
 }

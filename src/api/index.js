@@ -116,3 +116,11 @@ export const reqAddressList = () => request({ url: '/user/userAddress/auth/findU
  * @returns {Promise}
  */
 export const reqOrderInfo = () => request({ url: '/order/auth/trade', method: 'get' })
+
+/**
+ * 提交订单
+ * @param tradeNo 订单编号
+ * @param data 参数对象
+ * @returns {Promise}
+ */
+export const reqSubmitOrder = (tradeNo, data) => request({ url: `/order/auth/submitOrder?tradeNo=${tradeNo}`, method: 'post', data })

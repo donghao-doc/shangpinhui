@@ -4,6 +4,7 @@ import router from '@/router'
 import store from '@/store'
 import '@/mock/mockServe.js'
 import 'swiper/css/swiper.min.css'
+import * as API from '@/api'
 
 import TypeNav from '@/components/TypeNav'
 import BaseSwiper from '@/components/BaseSwiper'
@@ -17,6 +18,7 @@ Vue.config.productionTip = false
 new Vue({
     beforeCreate() {
         Vue.prototype.$bus = this
+        Vue.prototype.$API = API
     },
     router,
     store,

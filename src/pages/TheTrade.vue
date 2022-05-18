@@ -92,7 +92,7 @@ export default {
   name: 'TheTrade',
   data() {
     return {
-      leaveWord: ''
+      leaveWord: '',
     }
   },
   computed: {
@@ -129,14 +129,13 @@ export default {
         const result = await this.$API.reqSubmitOrder(tradeNo, data)
         console.log('submitOrder:', result)
         if (result.code === 200) {
-          this.$router.push('/pay')
+          this.$router.push({ name: 'pay', query: { orderId: result.data } })
         } else {
           window.alert(result.message)
         }
       } catch (err) {
         console.log('submitOrder err:', err)
       }
-
     }
   }
 }

@@ -124,3 +124,10 @@ export const reqOrderInfo = () => request({ url: '/order/auth/trade', method: 'g
  * @returns {Promise}
  */
 export const reqSubmitOrder = (tradeNo, data) => request({ url: `/order/auth/submitOrder?tradeNo=${tradeNo}`, method: 'post', data })
+
+/**
+ * 获取订单支付信息
+ * @param orderId 订单 id
+ * @returns {Promise}
+ */
+export const reqPayInfo = (orderId) => request({ url: `/payment/weixin/createNative/${orderId}`, method: 'get' })

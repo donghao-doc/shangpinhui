@@ -9,13 +9,13 @@ import * as API from '@/api'
 import TypeNav from '@/components/TypeNav'
 import BaseSwiper from '@/components/BaseSwiper'
 import BasePagination from '@/components/BasePagination'
+
 Vue.component(TypeNav.name, TypeNav)
 Vue.component(BaseSwiper.name, BaseSwiper)
 Vue.component(BasePagination.name, BasePagination)
 
 import { MessageBox } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-// Vue.component(MessageBox.name, MessageBox)
 
 Vue.config.productionTip = false
 
@@ -23,7 +23,8 @@ new Vue({
     beforeCreate() {
         Vue.prototype.$bus = this
         Vue.prototype.$API = API
-        Vue.prototype.$alert = MessageBox.alert;
+        Vue.prototype.$msgbox = MessageBox
+        Vue.prototype.$alert = MessageBox.alert
     },
     router,
     store,

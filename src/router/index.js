@@ -11,6 +11,7 @@ import AddCartSuccess from '@/pages/AddCartSuccess'
 import ShopCart from '@/pages/ShopCart'
 import TheTrade from '@/pages/TheTrade'
 import ThePay from '@/pages/ThePay'
+import PaySuccess from '@/pages/PaySuccess'
 
 const originPush = VueRouter.prototype.push
 const originReplace = VueRouter.prototype.replace
@@ -85,6 +86,12 @@ const router = new VueRouter({
             name: 'pay',
             path: '/pay',
             component: ThePay,
+            meta: { showFooter: true }
+        },
+        {
+            name: 'paySuccess',
+            path: '/paySuccess',
+            component: PaySuccess,
             meta: { showFooter: true }
         },
         {

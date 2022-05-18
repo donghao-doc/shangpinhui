@@ -81,11 +81,15 @@
 </template>
 
 <script>
+import QRCode from 'qrcode'
+
 export default {
   name: 'ThePay',
   data() {
     return {
-      payInfo: {}
+      payInfo: {},
+      timer: null,
+      payCode: ''
     }
   },
   computed: {
@@ -111,17 +115,61 @@ export default {
       }
     },
 
-    payNow() {
-      this.$alert('<strong>这是 <i>HTML</i> 片段</strong>', 'HTML 片段', {
+    async payNow() {
+      const dataUrl = await this.generateQR(this.payInfo.codeUrl)
+      const template = `<img src="${dataUrl}" alt="qrcode">`
+      this.$alert(template, '打开微信支付', {
         dangerouslyUseHTMLString: true,
         center: true,
         showCancelButton: true,
         cancelButtonText: '支付遇到问题',
         confirmButtonText: '我已支付成功',
-        showClose: false
-      }).then(() => {}, reason => {
-        console.log(reason)
-      })
+        showClose: false,
+        closeOnClickModal: true,
+        beforeClose: (action, instance, done) => {
+          clearInterval(this.timer)
+          this.timer = null
+          if (action === 'cancel') {
+            window.alert('请联系管理员')
+            done()
+          }
+          if (action === 'confirm') {
+            // if (this.payCode === 200) {
+              done()
+              this.$router.push('/paySuccess')
+            // }
+          }
+        }
+      }).then(() => {}, () => {})
+      // 每 1 秒查询支付状态
+      if (this.timer) return
+      this.timer = setInterval(async () => {
+        try {
+          const result = await this.$API.reqPayStatus(this.orderId)
+          if (result.code === 205) return   // 支付中
+          if (result.code === 200) {        // 支付成功
+            clearInterval(this.timer)
+            this.timer = null
+            this.payCode = result.code
+            this.$msgbox.close()
+            this.$router.push('/paySuccess')
+          } else {
+            window.alert(result.message)
+          }
+        } catch (err) {
+          console.log('reqPayStatus err:', err)
+        }
+      }, 1000)
+    },
+
+    async generateQR(text) {
+      try {
+        const result = await QRCode.toDataURL(text)
+        console.log('generateQR:', result)
+        return result
+      } catch (err) {
+        console.log('generateQR err:', err)
+      }
     }
   }
 }

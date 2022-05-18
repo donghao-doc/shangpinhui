@@ -7,8 +7,8 @@
           <span class="success-info">订单提交成功，请您及时付款，以便尽快为您发货~~</span>
         </h4>
         <div class="paymark">
-          <span class="fl">请您在提交订单<em class="orange time">4小时</em>之内完成支付，超时订单会自动取消。订单号：<em>{{orderId}}</em></span>
-          <span class="fr"><em class="lead">应付金额：</em><em class="orange money">￥{{payInfo.totalFee}}</em></span>
+          <span class="fl">请您在提交订单<em class="orange time">4小时</em>之内完成支付，超时订单会自动取消。订单号：<em>{{ orderId }}</em></span>
+          <span class="fr"><em class="lead">应付金额：</em><em class="orange money">￥{{ payInfo.totalFee }}</em></span>
         </div>
       </div>
       <div class="checkout-info">
@@ -112,7 +112,16 @@ export default {
     },
 
     payNow() {
-
+      this.$alert('<strong>这是 <i>HTML</i> 片段</strong>', 'HTML 片段', {
+        dangerouslyUseHTMLString: true,
+        center: true,
+        showCancelButton: true,
+        cancelButtonText: '支付遇到问题',
+        confirmButtonText: '我已支付成功',
+        showClose: false
+      }).then(() => {}, reason => {
+        console.log(reason)
+      })
     }
   }
 }

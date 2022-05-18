@@ -154,7 +154,12 @@ router.beforeEach(async (to, from, next) => {
             }
         }
     } else {
-        next()
+        const nameArr = ['trade', 'pay', 'paySuccess', 'myOrder', 'groupOrder']
+        if (nameArr.includes(to.name)) {
+            next(`/login?redirect=${to.path}`)
+        } else {
+            next()
+        }
     }
 })
 

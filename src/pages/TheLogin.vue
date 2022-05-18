@@ -85,7 +85,8 @@ export default {
       if (!password) return
       const result = await this.userLogin({ phone: account, password })
       if (result.code === 200) {
-        this.$router.push({ name: 'home' })
+        const path = this.$route.query.redirect || '/'
+        this.$router.push(path)
       } else {
         window.alert(result.message)
       }

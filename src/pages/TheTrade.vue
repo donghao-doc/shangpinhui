@@ -28,40 +28,24 @@
       </div>
       <div class="detail">
         <h5>商品清单</h5>
-        <ul class="list clearFix">
+        <ul v-for="order in orderInfo.detailArrayList" :key="order.skuId" class="list clearFix">
           <li>
-            <img src="@/assets/trade/goods.png" alt="goods">
+            <img :src="order.imgUrl" alt="goods" style="width: 100px">
           </li>
           <li>
-            <p>
-              Apple iPhone 6s (A1700) 64G 玫瑰金色 移动联通电信4G手机硅胶透明防摔软壳 本色系列</p>
+            <p>{{order.skuName}}</p>
             <h4>7天无理由退货</h4>
           </li>
           <li>
-            <h3>￥5399.00</h3>
+            <h3>￥{{order.orderPrice}}.00</h3>
           </li>
-          <li>X1</li>
-          <li>有货</li>
-        </ul>
-        <ul class="list clearFix">
-          <li>
-            <img src="@/assets/trade/goods.png" alt="goods">
-          </li>
-          <li>
-            <p>
-              Apple iPhone 6s (A1700) 64G 玫瑰金色 移动联通电信4G手机硅胶透明防摔软壳 本色系列</p>
-            <h4>7天无理由退货</h4>
-          </li>
-          <li>
-            <h3>￥5399.00</h3>
-          </li>
-          <li>X1</li>
+          <li>X{{order.skuNum}}</li>
           <li>有货</li>
         </ul>
       </div>
       <div class="bbs">
         <h5>买家留言：</h5>
-        <textarea placeholder="建议留言前先与商家沟通确认" class="remarks-cont"></textarea>
+        <textarea v-model="leaveWord" placeholder="建议留言前先与商家沟通确认" class="remarks-cont"></textarea>
       </div>
       <div class="line"></div>
       <div class="bill">
@@ -73,8 +57,8 @@
     <div class="money clearFix">
       <ul>
         <li>
-          <b><i>1</i>件商品，总商品金额</b>
-          <span>¥5399.00</span>
+          <b><i>{{orderInfo.totalNum}}</i>件商品，总商品金额</b>
+          <span>¥{{orderInfo.totalAmount}}.00</span>
         </li>
         <li>
           <b>返现：</b>
@@ -87,7 +71,7 @@
       </ul>
     </div>
     <div class="trade">
-      <div class="price">应付金额:<span>¥5399.00</span></div>
+      <div class="price">应付金额: <span>¥{{orderInfo.totalAmount}}.00</span></div>
       <div v-if="userDefaultAddress" class="receiveInfo">
         寄送至:
         <span>{{userDefaultAddress.fullAddress}}</span>
@@ -106,8 +90,13 @@ import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'TheTrade',
+  data() {
+    return {
+      leaveWord: ''
+    }
+  },
   computed: {
-    ...mapState('trade', ['addressList']),
+    ...mapState('trade', ['addressList', 'orderInfo']),
 
     userDefaultAddress() {
       return this.addressList.find(item => item.isDefault === '1')

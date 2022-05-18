@@ -12,6 +12,9 @@ import ShopCart from '@/pages/ShopCart'
 import TheTrade from '@/pages/TheTrade'
 import ThePay from '@/pages/ThePay'
 import PaySuccess from '@/pages/PaySuccess'
+import TheCenter from '@/pages/TheCenter'
+import MyOrder from '@/components/Center/MyOrder'
+import GroupOrder from '@/components/Center/GroupOrder'
 
 const originPush = VueRouter.prototype.push
 const originReplace = VueRouter.prototype.replace
@@ -93,6 +96,28 @@ const router = new VueRouter({
             path: '/paySuccess',
             component: PaySuccess,
             meta: { showFooter: true }
+        },
+        {
+            name: 'center',
+            path: '/center',
+            component: TheCenter,
+            meta: { showFooter: true },
+            children: [
+                {
+                    name: 'myOrder',
+                    path: 'myOrder',
+                    component: MyOrder
+                },
+                {
+                    name: 'groupOrder',
+                    path: 'groupOrder',
+                    component: GroupOrder
+                },
+                {
+                    path: '/center',
+                    redirect: '/center/myOrder'
+                }
+            ]
         },
         {
             path: '*',

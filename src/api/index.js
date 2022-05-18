@@ -138,3 +138,11 @@ export const reqPayInfo = (orderId) => request({ url: `/payment/weixin/createNat
  * @returns {Promise}
  */
 export const reqPayStatus = (orderId) => request({ url: `/payment/weixin/queryPayStatus/${orderId}`, method: 'get' })
+
+/**
+ * 查询个人中心数据
+ * @param page 页码
+ * @param limit 每一页多少条数据
+ * @returns {Promise}
+ */
+export const reqMyOrderList = (page, limit) => request({ url: `/order/auth/${page}/${limit}`, method: 'get' })

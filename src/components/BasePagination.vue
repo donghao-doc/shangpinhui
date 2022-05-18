@@ -20,7 +20,7 @@
 export default {
   name: 'BasePagination',
   props: {
-    pageNo: { type: Number, default: 30 },    // 当前页码
+    pageNo: { type: Number, default: 1 },     // 当前页码
     pageSize: { type: Number, default: 3 },   // 每一页多少条数据
     total: { type: Number, default: 91 },     // 一共有多少条数据
     continues: { type: Number, default: 5 },  // 连续的页码数

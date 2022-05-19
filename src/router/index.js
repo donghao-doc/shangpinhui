@@ -2,10 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '@/store'
 
-import TheHome from '@/pages/TheHome'
-import TheSearch from '@/pages/TheSearch'
-import TheLogin from '@/pages/TheLogin'
-import TheRegister from '@/pages/TheRegister'
 import TheDetail from '@/pages/TheDetail'
 import AddCartSuccess from '@/pages/AddCartSuccess'
 import ShopCart from '@/pages/ShopCart'
@@ -40,25 +36,25 @@ const router = new VueRouter({
         {
             name: 'home',
             path: '/',
-            component: TheHome,
+            component: () => import('@/pages/TheHome'),
             meta: { showFooter: true }
         },
         {
             name: 'search',
             path: '/search/:keyword?',
-            component: TheSearch,
+            component: () => import('@/pages/TheSearch'),
             meta: { showFooter: true }
         },
         {
             name: 'login',
             path: '/login',
-            component: TheLogin,
+            component: () => import('@/pages/TheLogin'),
             meta: { showFooter: false }
         },
         {
             name: 'register',
             path: '/register',
-            component: TheRegister,
+            component: () => import('@/pages/TheRegister'),
             meta: { showFooter: false }
         },
         {

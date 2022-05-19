@@ -19,7 +19,14 @@
 
 <script>
 export default {
-  name: 'PaySuccess'
+  name: 'PaySuccess',
+  beforeRouteEnter(to, from, next) {
+    if (from.name === 'pay') {
+      next()
+    } else {
+      next(false)
+    }
+  }
 }
 </script>
 

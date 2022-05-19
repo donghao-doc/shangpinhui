@@ -83,13 +83,27 @@ const router = new VueRouter({
             name: 'trade',
             path: '/trade',
             component: TheTrade,
-            meta: { showFooter: true }
+            meta: { showFooter: true },
+            beforeEnter(to, from ,next) {
+                if (from.name === 'shopCart') {
+                    next()
+                } else {
+                    next(false)
+                }
+            },
         },
         {
             name: 'pay',
             path: '/pay',
             component: ThePay,
-            meta: { showFooter: true }
+            meta: { showFooter: true },
+            beforeEnter(to, from, next) {
+                if (from.name === 'trade') {
+                    next()
+                } else {
+                    next(false)
+                }
+            },
         },
         {
             name: 'paySuccess',

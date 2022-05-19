@@ -8,29 +8,29 @@
       </h3>
       <div class="content">
         <label>手机号:</label>
-        <input v-model="tel" type="text" placeholder="请输入你的手机号">
-        <span class="error-msg">错误提示信息</span>
+        <input v-validate="{ required: true, regex: /^1[345789]\d{9}$/ }" :class="{ invalid: errors.has('phone') }" v-model="tel" type="text" name="phone" placeholder="请输入你的手机号">
+        <span v-show="errors.has('phone')" class="error-msg">{{errors.first('phone')}}</span>
       </div>
       <div class="content">
         <label>验证码:</label>
-        <input v-model="code" type="text" placeholder="请输入验证码">
+        <input v-validate="{ required: true, regex: /^\d{6}$/ }" v-model="code" type="text" name="code" placeholder="请输入验证码">
         <button @click="getCode">获取验证码</button>
-        <span class="error-msg">错误提示信息</span>
+        <span v-show="errors.has('code')" class="error-msg">{{errors.first('code')}}</span>
       </div>
       <div class="content">
         <label>登录密码:</label>
-        <input v-model="password" type="password" placeholder="请输入你的登录密码">
-        <span class="error-msg">错误提示信息</span>
+        <input v-validate="{ required: true, regex: /^[0-9a-zA-Z]{8,20}$/ }" v-model="password" type="password" name="password" placeholder="请输入你的登录密码">
+        <span v-show="errors.has('password')" class="error-msg">{{errors.first('password')}}</span>
       </div>
       <div class="content">
         <label>确认密码:</label>
-        <input v-model="confirmPassword" type="password" placeholder="请输入确认密码">
-        <span class="error-msg">错误提示信息</span>
+        <input v-validate="{ required: true, is: password }" v-model="confirmPassword" type="password" name="confirmPassword" placeholder="请输入确认密码">
+        <span v-show="errors.has('confirmPassword')" class="error-msg">{{errors.first('confirmPassword')}}</span>
       </div>
       <div class="controls">
-        <input v-model="agree" name="m1" type="checkbox">
+        <input v-validate="{ required: true, 'agree': true }" v-model="agree" name="agree" type="checkbox">
         <span>同意协议并注册《尚品汇用户协议》</span>
-        <span class="error-msg">错误提示信息</span>
+        <span v-show="errors.has('agree')" class="error-msg">{{errors.first('agree')}}</span>
       </div>
       <div class="btn">
         <button @click="register">完成注册</button>
@@ -84,16 +84,17 @@ export default {
     },
 
     async register() {
-      const { tel: phone, password, confirmPassword, code, agree } = this
-      if (!phone) return
-      if (!code) return
-      if (password !== confirmPassword) return
-      if (!agree) return
-      const result = await this.userRegister({ phone, password, code })
-      if (result.code === 200) {
-        this.$router.push({ name: 'login' })
+      const success = await this.$validator.validateAll()   // 全部验证完毕返回布尔值
+      if (success) {
+        const { tel: phone, password, code } = this
+        const result = await this.userRegister({ phone, password, code })
+        if (result.code === 200) {
+          this.$router.push({ name: 'login' })
+        } else {
+          window.alert(result.message)
+        }
       } else {
-        window.alert(result.message)
+        window.alert('请正确填写表单')
       }
     }
   }

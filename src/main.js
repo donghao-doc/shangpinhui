@@ -17,6 +17,12 @@ Vue.component(BasePagination.name, BasePagination)
 import { MessageBox } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
+import VueLazyload from 'vue-lazyload'
+import loadingGif from '@/assets/loading.gif'
+Vue.use(VueLazyload, {
+    loading: loadingGif,
+})
+
 Vue.config.productionTip = false
 
 new Vue({

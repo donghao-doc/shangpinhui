@@ -69,5 +69,5 @@ export default {
 </script>
 
 <style scoped>
-.swiper-container { border: 1px solid red; }
+
 </style>

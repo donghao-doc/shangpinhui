@@ -38,7 +38,7 @@ export default {
         async addToCart(context, skuId, skuNum) {
             try {
                 const result = await reqAddToCart(skuId, skuNum)
-                console.log('addCart:', result)
+                // console.log('addCart:', result)
                 return result
             } catch (err) {
                 console.log('addCart err:', err)

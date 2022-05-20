@@ -104,7 +104,7 @@ export default {
     async getPayInfo() {
       try {
         const result = await this.$API.reqPayInfo(this.orderId)
-        console.log('getPayInfo:', result)
+        // console.log('getPayInfo:', result)
         if (result.code === 200) {
           this.payInfo = result.data
         } else {
@@ -165,7 +165,7 @@ export default {
     async generateQR(text) {
       try {
         const result = await QRCode.toDataURL(text)
-        console.log('generateQR:', result)
+        // console.log('generateQR:', result)
         return result
       } catch (err) {
         console.log('generateQR err:', err)

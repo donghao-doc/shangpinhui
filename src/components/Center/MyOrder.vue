@@ -147,7 +147,7 @@ export default {
     async getMyOrderList() {
       try {
         const result = await this.$API.reqMyOrderList(this.page, this.limit)
-        console.log('getMyOrderList:', result)
+        // console.log('getMyOrderList:', result)
         if (result.code === 200) {
           this.myOrder = result.data
         } else {

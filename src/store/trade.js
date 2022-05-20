@@ -19,7 +19,7 @@ export default {
         async getAddressList(context) {
             try {
                 const result = await reqAddressList()
-                console.log('getAddressList:', result)
+                // console.log('getAddressList:', result)
                 if (result.code === 200) {
                     context.commit('SETADDRESSLIST', result.data)
                 }
@@ -30,7 +30,7 @@ export default {
         async getOrderInfo(context) {
             try {
                 const result = await reqOrderInfo()
-                console.log('getOrderInfo:', result)
+                // console.log('getOrderInfo:', result)
                 if (result.code === 200) {
                     context.commit('SETORDERINFO', result.data)
                 }

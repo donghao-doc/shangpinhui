@@ -28,7 +28,7 @@ export default {
         async getSearchInfo(context, value={}) {
             try {
                 const result = await reqSearchInfo(value)
-                console.log('getSearchInfo:', result)
+                // console.log('getSearchInfo:', result)
                 if (result.code === 200) {
                     context.commit('SETSEARCHINFO', result.data)
                 }

@@ -56,7 +56,7 @@ export default {
         async getUserInfo(context) {
             try {
                 const result = await reqUserInfo()
-                console.log('getUserInfo:', result)
+                // console.log('getUserInfo:', result)
                 if (result.code === 200) {
                     context.commit('SETUSERINFO', result.data)
                 }
@@ -68,7 +68,7 @@ export default {
         async userLogout(context) {
             try {
                 const result = await reqLogOut()
-                console.log('userLogout:', result)
+                // console.log('userLogout:', result)
                 if (result.code === 200) {
                     context.commit('CLEAR')
                 }

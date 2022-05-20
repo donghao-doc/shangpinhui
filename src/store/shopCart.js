@@ -19,7 +19,7 @@ export default {
         async getShopCartList(context) {
             try {
                 const result = await reqShopCartList()
-                console.log('getShopCartList:', result)
+                // console.log('getShopCartList:', result)
                 if (result.code === 200) {
                     context.commit('SETSHOPCARTLIST', result.data)
                 }
@@ -30,7 +30,7 @@ export default {
         async deleteCart(context, skuId) {
             try {
                 const result = await reqDeleteCart(skuId)
-                console.log('deleteCart:', result)
+                // console.log('deleteCart:', result)
                 return result
             } catch (err) {
                 console.log('deleteCart err:', err)
@@ -39,7 +39,7 @@ export default {
         async checkCart(context, { skuId, isChecked }) {
             try {
                 const result = await reqCheckCart(skuId, isChecked)
-                console.log('checkCart:', result)
+                // console.log('checkCart:', result)
                 return result
             } catch (err) {
                 console.log('checkCart err:', err)

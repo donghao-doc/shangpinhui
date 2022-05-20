@@ -127,7 +127,7 @@ export default {
       }
       try {
         const result = await this.$API.reqSubmitOrder(tradeNo, data)
-        console.log('submitOrder:', result)
+        // console.log('submitOrder:', result)
         if (result.code === 200) {
           this.$router.push({ name: 'pay', query: { orderId: result.data } })
         } else {
